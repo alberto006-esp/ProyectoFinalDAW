@@ -486,8 +486,6 @@
 
                         </div>
                         <%@include file="APIMap.html" %>
-
-
                     </div>
                     <!-- /row -->
                 </div>
