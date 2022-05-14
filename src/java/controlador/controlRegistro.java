@@ -4,6 +4,7 @@
  */
 package controlador;
 
+
 import Db.BDD;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -83,6 +84,7 @@ public class controlRegistro extends HttpServlet {
         String telfString = request.getParameter("telefono");
         int telefono = Integer.parseInt(telfString);
         String tipo = "user";
+        //String generatedSecuredPasswordHash = BCrypt.hashpw(pass, BCrypt.gensalt(12));
         String generatedSecuredPasswordHash = BCrypt.hashpw(pass, BCrypt.gensalt(12));
         if (!pass.equals(RePass)) {
             String errorReg = "Las contraseñas no coinciden.";
@@ -92,7 +94,7 @@ public class controlRegistro extends HttpServlet {
         } else {
 
             String encontrado = BDD.buscarUsuario(usuario);
-            if (encontrado != null) {
+            if (!encontrado.equals("")) {
                 String errorReg = "El usuario introducido ya esta registrado.";
                 request.setAttribute("errorReg", errorReg);
                 rd = request.getRequestDispatcher("/errorRegistro.jsp");
