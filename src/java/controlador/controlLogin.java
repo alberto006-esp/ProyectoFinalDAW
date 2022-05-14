@@ -76,8 +76,9 @@ public class controlLogin extends HttpServlet {
         String usuario=request.getParameter("usuario");
         String pass=request.getParameter("pass");
         String clave=BDD.buscarUsuario(usuario);
-        
-        if (clave!=null&& clave.equals(pass)) {
+        if(clave!=null){
+        boolean matched = BCrypt.checkpw(pass, clave);
+        if (matched==true) {
             HttpSession sesionantigua=request.getSession();
             sesionantigua.invalidate();
             HttpSession sesion=request.getSession();
@@ -96,6 +97,7 @@ public class controlLogin extends HttpServlet {
             request.setAttribute("error", error);
             rd=request.getRequestDispatcher("/errorLogin.jsp");
             rd.forward(request, response);
+        }
         }
     }
     

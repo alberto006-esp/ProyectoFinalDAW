@@ -83,6 +83,7 @@ public class controlRegistro extends HttpServlet {
         String telfString = request.getParameter("telefono");
         int telefono = Integer.parseInt(telfString);
         String tipo = "user";
+        String generatedSecuredPasswordHash = BCrypt.hashpw(pass, BCrypt.gensalt(12));
         if (!pass.equals(RePass)) {
             String errorReg = "Las contraseñas no coinciden.";
             request.setAttribute("errorReg", errorReg);
@@ -97,7 +98,7 @@ public class controlRegistro extends HttpServlet {
                 rd = request.getRequestDispatcher("/errorRegistro.jsp");
                 rd.forward(request, response);
             } else {
-                Usuario user = new Usuario(nombre, apellidos, tipo, email, usuario, pass, direccion, telefono);
+                Usuario user = new Usuario(nombre, apellidos, tipo, email, usuario, generatedSecuredPasswordHash, direccion, telefono);
                 BDD.AltaUsuario(user);
                 String error = "Usuario añadido correctamente, introduzca su usuario y contraseña.";//Uso el error del login para mostrar que se ha añadido el usuario y ya se puede logear.
                 request.setAttribute("error", error);
