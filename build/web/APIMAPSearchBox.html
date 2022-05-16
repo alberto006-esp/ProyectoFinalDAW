@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<!--
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Html.html to edit this template
+-->
+<html>
+    <head>
+        <title>Places Search Box</title>
+        <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+
+        <link rel="stylesheet" type="text/css" href="css/estiloMapaBusqueda.css" />
+        <script type="module" src="js/mapaBusqueda.js"></script>
+    </head>
+    <body>
+        <h3 style="color: white;">Donde encontrarnos:</h3>
+        <input
+            id="pac-input"
+            class="controls"
+            type="text"
+            placeholder="Search Box"
+            />
+        <div id="map"></div>
+
+        <!-- 
+         The `defer` attribute causes the callback to execute after the full HTML
+         document has been parsed. For non-blocking uses, avoiding race conditions,
+         and consistent behavior across browsers, consider loading using Promises
+         with https://www.npmjs.com/package/@googlemaps/js-api-loader.
+        -->
+        <script
+            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDaokTOn3ysJ7tHKJ8LEXzAhG1WCK6bVHw&callback=initAutocomplete&libraries=places&v=weekly"
+            async>
+        </script>
+    </body>
+</html>
