@@ -485,7 +485,7 @@
                             </ul>
 
                         </div>
-                        <%@include file="APIMap.html" %>
+                        <%@include file="APIMAPSearchBox.html" %>
                     </div>
                     <!-- /row -->
                 </div>
