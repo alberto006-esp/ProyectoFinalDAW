@@ -46,7 +46,7 @@ function initAutocomplete() {
         icon: icon,
         draggable: true,
         map: map,
-        title: "Electro Master S.A.",
+        title: "Pincha para ver la información de la empresa",
     });
     marker.addListener("click", () => {
         infowindow.open({
@@ -90,10 +90,11 @@ function initAutocomplete() {
             };
 
             // Create a marker for each place.
+            const icon2 = "https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png";
             markers.push(
                     new google.maps.Marker({
                         map,
-                        icon,
+                        icon: icon2,
                         draggable: true,
                         title: place.name,
                         position: place.geometry.location,
