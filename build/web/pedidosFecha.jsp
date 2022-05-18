@@ -70,7 +70,7 @@
                     <ul class="header-links pull-left" style="color: white">
                         <li><i class="fa fa-phone"></i> 956-36-85-16</li>
                         <li><i class="fa fa-envelope-o"></i> electro_master@gmail.com</a></li>
-                        <li><i class="fa fa-map-marker"></i> Calle Labarta nº36</li>
+                        <li><i class="fa fa-map-marker"></i>Cl. Banda Playa, 65, 11540 Sanlúcar de Barrameda, Cádiz</li>
                     </ul>
                     <ul class="header-links pull-right" style="color: white">
                         <li><i class="fa fa-euro"></i> Euros</li>

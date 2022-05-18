@@ -17,7 +17,7 @@
         <!-- Estilos -->
         <link rel="stylesheet" href="css/style2_1.css">
 
-        <title>Formulario Login y Registro de Usuarios</title>
+        <title>Error de registro</title>
         <style>
             .contenido-tab > div:first-child {
                 display: none;

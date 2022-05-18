@@ -71,7 +71,7 @@
                     <ul class="header-links pull-left" style="color: white">
                         <li><i class="fa fa-phone"></i> 956-36-85-16</li>
                         <li><i class="fa fa-envelope-o"></i> electro_master@gmail.com</a></li>
-                        <li><i class="fa fa-map-marker"></i> Calle Labarta nº36</li>
+                        <li><i class="fa fa-map-marker"></i>Cl. Banda Playa, 65, 11540 Sanlúcar de Barrameda, Cádiz</li>
                     </ul>
                     <ul class="header-links pull-right" style="color: white">
                         <li><i class="fa fa-euro"></i> Euros</li>
@@ -462,12 +462,12 @@
                                 <h4 class=" footer-title">Electro Master S.A.</h4>
                                 <p>Fundada en 1980, somos una empresa familiar que empezó como una tienda pequeña de productos electrónicos en Sevila y que con la entrada de las nuevas tecnologías y la venta online nos expandimos a la mayor parte de España.</p>
                                 <ul class="header-links">
-                                    <li><i class="fa fa-map-marker"></i> Calle Labarta nº36</li>
+                                    <li><i class="fa fa-map-marker"></i>Cl. Banda Playa, 65, 11540 Sanlúcar de Barrameda, Cádiz</li>
                                     <li><i class="fa fa-phone"></i> 956-36-85-16</li>
                                     <li><i class="fa fa-envelope-o"></i> electro_master@gmail.com</li>
                                 </ul>
                             </div>
-                        
+                        <%@include file="APIMAPSearchBox.html" %>
                     </div>
                     <!-- /row -->
                 </div>
@@ -503,7 +503,6 @@
             <!-- /bottom footer -->
         </footer>
         <!-- /FOOTER -->
-
         <!-- jQuery Plugins -->
         <script src="js/jquery.min.js"></script>
         <script src="js/bootstrap.min.js"></script>

@@ -9,7 +9,7 @@
 <html lang="en" >
 <head>
   <meta charset="UTF-8">
-  <title>CodePen - Formulario Login / Registro de Usuarios - HTML5, CSS3 y JS (JQuery)</title>
+  <title>Error al iniciar sesión</title>
   <link rel="stylesheet" href="./style2.css">
 
 </head>
