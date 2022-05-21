@@ -79,7 +79,7 @@
                         <li><i class="fa fa-euro"></i> Euros</li>
                         <li><i class="fa fa-user-o"></i> <%=usuario%></li>
                             <%if (usuario.equals("invitado")) {%>
-                        <li><a href="index.html"><i class="fa fa-sign-out"></i>Iniciar Sesion/Registrarse</a></li>        
+                        <li><a href="index.html"><i class="fa fa-sign-in"></i>Iniciar Sesion/Registrarse</a></li>        
                             <%} else {%>
                         <li><a href="controlCerrarSesion"><i class="fa fa-sign-out"></i>Cerrar Sesion</a></li>
                             <%}%>
@@ -271,7 +271,7 @@
 
                         <!-- aside Widget -->
                         <div class="aside">
-                            <h3 class="aside-title">Price</h3>
+                            <h3 class="aside-title">Filtrar por precio</h3>
                             <div class="price-filter">
                                 <form action="controlBusquedaPorPrecio" method="post">
                                     <div id="price-slider"></div>
@@ -286,7 +286,7 @@
                                         <span class="qty-up">+</span>
                                         <span class="qty-down">-</span>
                                     </div>
-                                    <input type="submit" name="buscar por precio" value="buscar por precio" class="btn btn-danger" style="margin-top: 10%"t>
+                                    <input type="submit" name="buscar por precio" value="buscar por precio" class="primary-btn order-submit" style="margin-top: 10%"t>
                                 </form>
                             </div>
                         </div>

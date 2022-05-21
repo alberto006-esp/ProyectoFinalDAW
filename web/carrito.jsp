@@ -82,7 +82,7 @@
                             <%if (usuario.equals("invitado")) {%>
                         <li><a href="index.html"><i class="fa fa-sign-out"></i>Iniciar Sesion/Registrarse</a></li>        
                             <%} else {%>
-                        <li><a href="controlCerrarSesion"><i class="fa fa-sign-out"></i>Cerrar Sesion</a></li>
+                        <li><a href="controlCerrarSesion"><i class="fa fa-sign-in"></i>Cerrar Sesion</a></li>
                         <%}%>
                     </ul>
                 </div>
