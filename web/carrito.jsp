@@ -51,19 +51,21 @@
     <body>
         <!-- HEADER -->
         <header>
-             <%
-            
-            HttpSession sesion=request.getSession();
-    
-     String usuario=(String) sesion.getAttribute("usuario");
+            <%
 
-    if(usuario == null){
+                HttpSession sesion = request.getSession();
 
-        RequestDispatcher rd;
-        ServletContext contexto = getServletContext();
-        rd= contexto.getRequestDispatcher("/index.html");
-        rd.forward(request, response);
-        }
+                String usuario = (String) sesion.getAttribute("usuario");
+
+                /*if(usuario == null){
+
+       RequestDispatcher rd;
+       ServletContext contexto = getServletContext();
+       rd= contexto.getRequestDispatcher("/index.html");
+       rd.forward(request, response);
+       }*/
+                if (usuario == null)
+                    usuario = "invitado";
             %>
             <!-- TOP HEADER -->
             <div id="top-header">
@@ -75,8 +77,8 @@
                     </ul>
                     <ul class="header-links pull-right" style="color: white">
                         <li><i class="fa fa-euro"></i> Euros</li>
-                            
-                        <li><i class="fa fa-user-o"></i> <%=sesion.getAttribute("usuario")%></li>
+
+                        <li><i class="fa fa-user-o"></i> <%=usuario%></li>
                         <li><a href="controlCerrarSesion"><i class="fa fa-sign-out"></i>Cerrar Sesion</a></li>
                     </ul>
                 </div>
@@ -196,14 +198,16 @@
                     <div class="col-md-7">
                         <!-- Billing Details -->
                         <div class="billing-details">
+
+                            <% String nombreUsuario = (String) sesion.getAttribute("usuario");
+                                if (nombreUsuario != null) {
+                                    Usuario usu = BDD.buscarDatosUsuario(nombreUsuario);
+                            %>
                             <div class="section-title">
-                                <% String nombreUsuario=(String)sesion.getAttribute("usuario"); 
-                                   Usuario usu=BDD.buscarDatosUsuario(nombreUsuario);
-                                %>
                                 <h3 class="title">Datos usuario</h3>
                             </div>
                             <div class="form-group">
-                                <input class="input" type="text" name="first-name" value="<%=usu.getNombre() %>" readonly="true">
+                                <input class="input" type="text" name="first-name" value="<%=usu.getNombre()%>" readonly="true">
                             </div>
                             <div class="form-group">
                                 <input class="input" type="text" name="last-name" value="<%= usu.getApellidos()%>" readonly="true">
@@ -217,134 +221,181 @@
                             <div class="form-group">
                                 <input class="input" type="tel" name="tel" value="<%= usu.getTelefono()%>" readonly="true">
                             </div>
-                            
+                            <%} else {%>
+                            <div class="section-title">
+                                <h3 class="title">Registrarse</h3>
+                                <p>¿Aún no te has registrado? Introduce tus datos para unirte a la familia <b>ELECTRO MASTER</b>.</p>
+                            </div>
+                            <form action="controlRegistro" method="post">
+                                <div class="form-group">
+                                    <label for="nombre">Nombre:</label>
+                                    <input class="input" name="nombre" type="text" pattern="[A-ZÑña-záéíóúÁÉÍÓÚ\s]{1,15}" required >
+                                </div>
+                                <div class="form-group">
+                                    <label for="apellidos">Apellidos:</label>
+                                    <input class="input" name="apellidos" type="text" pattern="[A-ZÑña-záéíóúÁÉÍÓÚ\s]{1,15}" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="usuario">Usuario:</label>
+                                    <input class="input" name="usuario" type="text" pattern="\S{8,16}" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="email">Email:</label>
+                                    <input class="input" name="email" type="email" pattern="[a-zA-Z0-9!#$%&'*_+-]([\.]?[a-zA-Z0-9!#$%&'*_+-])+@[a-zA-Z0-9]([^@&%$\/()=?¿!.,:;]|\d)+[a-zA-Z0-9][\.][a-zA-Z]{2,4}([\.][a-zA-Z]{2})?"  required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="pass">Contraseña:</label>
+                                    <input class="input" name="pass" type="password" pattern="(?=.*\d)(?=.*[!#$%&'()*+,-./:;<=>?@[\]^_`{|}~¡!¿])(?=.*[A-Z])(?=.*[a-z])\S{8,16}" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="RePass"> Repetir contraseña:</label>
+                                    <input class="input" name="RePass" type="password" pattern="(?=.*\d)(?=.*[!#$%&'()*+,-./:;<=>?@[\]^_`{|}~¡!¿])(?=.*[A-Z])(?=.*[a-z])\S{8,16}" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="direccion">Dirección:</label>
+                                    <input class="input" name="direccion" type="text" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="telefono">Teléfono:</label>
+                                    <input class="input" name="telefono" type="text" pattern="[\d]{9}" required>
+                                </div>
+                                <div class="form-group">
+                                    <input class="primary-btn order-submit" style="width: 50%" name="registrarse" value="Registrarse" type="submit"><a href="index.html" style="width: 50%" class="primary-btn order-submit">Iniciar Sesión</a>
+                                </div>
+                            </form>
+                            <%}%>
                         </div>
                         <!-- /Billing Details -->
 
                         <!-- Shiping Details -->
-                        
+
                         <!-- /Shiping Details -->
 
                         <!-- Order notes -->
                         <!-- /Order notes -->
                     </div>
                     <%  ServletContext contexto = getServletContext();
-                        List<Producto> listaCarrito = (List<Producto>) contexto.getAttribute("listaCarrito"); 
-                        if (listaCarrito==null) {//si entramos al carrito sin añadir ni borrar ningun alrticulo me saltaba un error pq la lista no estaba vacia sino que era 
-                           listaCarrito=new ArrayList<Producto>();//null puesto que no se crea el atributo listaCarrito si no entramos en los controladores de añadir o borrar.
-                            }
+                        List<Producto> listaCarrito = (List<Producto>) contexto.getAttribute("listaCarrito");
+                        if (listaCarrito == null) {//si entramos al carrito sin añadir ni borrar ningun alrticulo me saltaba un error pq la lista no estaba vacia sino que era 
+                            listaCarrito = new ArrayList<Producto>();//null puesto que no se crea el atributo listaCarrito si no entramos en los controladores de añadir o borrar.
+                        }
                     %>
-                        
+
                     <!-- Order Details -->
                     <form action="controlPedidos" method="post">
-                    <div class="col-md-5 order-details">
-                        <div class="section-title text-center">
-                            <h3 class="title">Tu Carrito</h3>
-                        </div>
-                        <div class="order-summary">
-
-                            <%  double precioFinal = 0;
-                                double precioTotal = 0;
-                                if (listaCarrito.isEmpty()) {%>
-                            <p class="product-name"><strong>CARRITO VACIO</strong></p> 
-                            <% } else {%>
-                            <div class="order-col">
-                                <div><strong>PRODUCTOS</strong></div>
-                                <div><strong>PRECIO</strong></div>
+                        <div class="col-md-5 order-details">
+                            <div class="section-title text-center">
+                                <h3 class="title">Tu Carrito</h3>
                             </div>
-                            <div class="order-products">
-                            <%  int arrayCantidades[]=new int[listaCarrito.size()];
-                                String arrayNombres[]=new String[listaCarrito.size()];
-                                int cont=0;
-                                for (Producto pro : listaCarrito) {
-                                    precioFinal = pro.getPrecio() - (pro.getPrecio() * pro.getDescuento());
-                                    precioTotal += precioFinal;
-                                    
-                            %>
-                            
+                            <div class="order-summary">
+
+                                <%  double precioFinal = 0;
+                                    double precioTotal = 0;
+                                    if (listaCarrito.isEmpty()) {%>
+                                <p class="product-name"><strong>CARRITO VACIO</strong></p> 
+                                <% } else {%>
                                 <div class="order-col">
-                                    <!--<button type="submit" class="delete"><i class="fa fa-close"></i></button>-->
-                                    <div><a href="borrarArtCarritoFinal?nombreProductoBorrar=<%=pro.getNombre()%>" class="delete" style="margin-right: 2%"><i class="fa fa-close"></i></a><input type="number" class="cantidadArticulo" name="<%=pro.getNombre()%>" value="<%=pro.getCantidad()%>" size="3" min="1"> <%=pro.getNombre()%></div>
-                                    <div><h5 style="margin-left: 40%"><%=precioFinal%>€</h5></div>
-                                    <input type="number" hidden="true" name="name" class="precioFinal" value="<%=precioFinal%>">
+                                    <div><strong>PRODUCTOS</strong></div>
+                                    <div><strong>PRECIO</strong></div>
                                 </div>
-                                    <%  
-                                        arrayCantidades[cont]=pro.getCantidad();//hay que arreglar el envio del parametro de arrayCantidades.
-                                        arrayNombres[cont]=pro.getNombre();
-                                        cont++;
-                            }%>
-                            </div>
-                            
-                            <div class="order-col">
+                                <div class="order-products">
+                                    <%  int arrayCantidades[] = new int[listaCarrito.size()];
+                                        String arrayNombres[] = new String[listaCarrito.size()];
+                                        int cont = 0;
+                                        for (Producto pro : listaCarrito) {
+                                            precioFinal = pro.getPrecio() - (pro.getPrecio() * pro.getDescuento());
+                                            precioTotal += precioFinal;
 
-                                <div>Gastos de Envío</div>                              
-                                <div><strong>GRATIS</strong></div>     
-                            </div>
-                            <%}%>    
-                            <div class="order-col">
-                                <div><strong>TOTAL</strong></div>
-                                <% precioTotal = Math.round(precioTotal * 100.0) / 100.0; %>
-                                <div><strong id="precioTotal" class="order-total"><%=precioTotal%>€</strong></div>
-                            </div>
+                                    %>
 
-                        </div>
-                        <div class="payment-method">
-                            <div class="input-radio">
-                                <input type="radio" name="payment" id="payment-1" checked="true">
-                                <label for="payment-1">
-                                    <span></span>
-                                    Transferencia Bancaria
-                                </label>
-                                <div class="caption">
-                                    <p>El pago se realizará a través de una cuenta bancaria.</p>
+                                    <div class="order-col">
+                                        <!--<button type="submit" class="delete"><i class="fa fa-close"></i></button>-->
+                                        <div><a href="borrarArtCarritoFinal?nombreProductoBorrar=<%=pro.getNombre()%>" class="delete" style="margin-right: 2%"><i class="fa fa-close"></i></a><input type="number" class="cantidadArticulo" name="<%=pro.getNombre()%>" value="<%=pro.getCantidad()%>" size="3" min="1"> <%=pro.getNombre()%></div>
+                                        <div><h5 style="margin-left: 40%"><%=precioFinal%>€</h5></div>
+                                        <input type="number" hidden="true" name="name" class="precioFinal" value="<%=precioFinal%>">
+                                    </div>
+                                    <%
+                                            arrayCantidades[cont] = pro.getCantidad();//hay que arreglar el envio del parametro de arrayCantidades.
+                                            arrayNombres[cont] = pro.getNombre();
+                                            cont++;
+                                        }%>
+                                </div>
+
+                                <div class="order-col">
+
+                                    <div>Gastos de Envío</div>                              
+                                    <div><strong>GRATIS</strong></div>     
+                                </div>
+                                <%}%>    
+                                <div class="order-col">
+                                    <div><strong>TOTAL</strong></div>
+                                    <% precioTotal = Math.round(precioTotal * 100.0) / 100.0;%>
+                                    <div><strong id="precioTotal" class="order-total"><%=precioTotal%>€</strong></div>
+                                </div>
+
+                            </div>
+                            <div class="payment-method">
+                                <div class="input-radio">
+                                    <input type="radio" name="payment" id="payment-1" checked="true">
+                                    <label for="payment-1">
+                                        <span></span>
+                                        Transferencia Bancaria
+                                    </label>
+                                    <div class="caption">
+                                        <p>El pago se realizará a través de una cuenta bancaria.</p>
+                                    </div>
+                                </div>
+                                <div class="input-radio">
+                                    <input type="radio" name="payment" id="payment-2">
+                                    <label for="payment-2">
+                                        <span></span>
+                                        Tarjeta
+                                    </label>
+                                    <div class="caption">
+                                        <p>El pago se realizará con una tarjeta aportada por el usuario.</p>
+                                    </div>
+                                </div>
+                                <div class="input-radio">
+                                    <input type="radio" name="payment" id="payment-3">
+                                    <label for="payment-3">
+                                        <span></span>
+                                        Paypal
+                                    </label>
+                                    <div class="caption">
+                                        <p>El pago se realizará con una cuenta Paypal.</p>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="input-radio">
-                                <input type="radio" name="payment" id="payment-2">
-                                <label for="payment-2">
+                            <div class="input-checkbox">
+                                <input type="checkbox" id="terms" checked="true" required="true" title="Debes aceptar los términos y condiciones" data-error="Debes aceptar los términos y condiciones">
+                                <label for="terms">
                                     <span></span>
-                                    Tarjeta
+                                    <p>He leído y acepto los términos y condiciones.</p>
                                 </label>
-                                <div class="caption">
-                                    <p>El pago se realizará con una tarjeta aportada por el usuario.</p>
-                                </div>
                             </div>
-                            <div class="input-radio">
-                                <input type="radio" name="payment" id="payment-3">
-                                <label for="payment-3">
-                                    <span></span>
-                                    Paypal
-                                </label>
-                                <div class="caption">
-                                    <p>El pago se realizará con una cuenta Paypal.</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="input-checkbox">
-                            <input type="checkbox" id="terms" checked="true" required="true" title="Debes aceptar los términos y condiciones" data-error="Debes aceptar los términos y condiciones">
-                            <label for="terms">
-                                <span></span>
-                                He leído y acepto los términos y condiciones.
-                            </label>
-                        </div>
-                                <%if (listaCarrito.isEmpty()) {%>       
-                                  <%}else{%>
-                                  <input type="submit" class="primary-btn order-submit" style="width: 100%" value="Realizar Pedido">
-                               <% }%>
-                                
-                        
-                        <% String URL=(String) contexto.getAttribute("URL");
-                            if (URL.equals("/ProyectoProductosTecnologicos/storeBusqueda.jsp")) {%>
-                                <a href="storeBusqueda.jsp" class="primary-btn order-submit">Seguir Comprando</a>
+                            <%if (listaCarrito.isEmpty()) {%>       
+                            <%} else {
+                                if (usuario.equals("invitado")) {%>
+                                <p class="alert-warning"><b>¡Debes iniciar sesión para poder realizar el pedido!</b></p>
+                                <%} else {
+                            %>
+                            <input type="submit" class="primary-btn order-submit" style="width: 100%" value="Realizar Pedido">
+                            <% }
+                                }%>
+
+
+                            <% String URL = (String) contexto.getAttribute("URL");
+                                if (URL.equals("/ProyectoProductosTecnologicos/storeBusqueda.jsp")) {%>
+                            <a href="storeBusqueda.jsp" class="primary-btn order-submit">Seguir Comprando</a>
                             <%}
-                            if(URL.equals("/ProyectoProductosTecnologicos/store.jsp")){ %>
+                                if (URL.equals("/ProyectoProductosTecnologicos/store.jsp")) { %>
                             <a href="store.jsp" class="primary-btn order-submit">Seguir Comprando</a>
-                           <% }
-                           if(URL.equals("/ProyectoProductosTecnologicos/storePorCategoria.jsp")){ %>
+                            <% }
+                                if (URL.equals("/ProyectoProductosTecnologicos/storePorCategoria.jsp")) { %>
                             <a href="storePorCategoria.jsp" class="primary-btn order-submit">Seguir Comprando</a>
-                           <% }%>
-                        
-                    </div>
+                            <% }%>
+
+                        </div>
                     </form>
                     <!-- /Order Details -->
                 </div>
@@ -362,7 +413,7 @@
                 <div class="row">
                     <div class="col-md-12">
                         <div class="newsletter">
-                            
+
                             <ul class="newsletter-follow">
                                 <li>
                                     <a href="https://es-es.facebook.com/"><i class="fa fa-facebook"></i></a>
@@ -395,15 +446,15 @@
                     <!-- row -->
                     <div class="row">
                         <div class="footer">
-                                <h3 class="footer-title">Sobre Nosotros</h3>
-                                <h4 class=" footer-title">Electro Master S.A.</h4>
-                                <p>Fundada en 1980, somos una empresa familiar que empezó como una tienda pequeña de productos electrónicos en Sevila y que con la entrada de las nuevas tecnologías y la venta online nos expandimos a la mayor parte de España.</p>
-                                <ul class="header-links">
-                                    <li><i class="fa fa-map-marker"></i>Cl. Banda Playa, 65, 11540 Sanlúcar de Barrameda, Cádiz</li>
-                                    <li><i class="fa fa-phone"></i> 956-36-85-16</li>
-                                    <li><i class="fa fa-envelope-o"></i> electro_master@gmail.com</li>
-                                </ul>
-                            </div>
+                            <h3 class="footer-title">Sobre Nosotros</h3>
+                            <h4 class=" footer-title">Electro Master S.A.</h4>
+                            <p>Fundada en 1980, somos una empresa familiar que empezó como una tienda pequeña de productos electrónicos en Sevila y que con la entrada de las nuevas tecnologías y la venta online nos expandimos a la mayor parte de España.</p>
+                            <ul class="header-links">
+                                <li><i class="fa fa-map-marker"></i>Cl. Banda Playa, 65, 11540 Sanlúcar de Barrameda, Cádiz</li>
+                                <li><i class="fa fa-phone"></i> 956-36-85-16</li>
+                                <li><i class="fa fa-envelope-o"></i> electro_master@gmail.com</li>
+                            </ul>
+                        </div>
                         <%@include file="APIMAPSearchBox.html" %>
                     </div>
                     <!-- /row -->
