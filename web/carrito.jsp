@@ -79,7 +79,11 @@
                         <li><i class="fa fa-euro"></i> Euros</li>
 
                         <li><i class="fa fa-user-o"></i> <%=usuario%></li>
+                            <%if (usuario.equals("invitado")) {%>
+                        <li><a href="index.html"><i class="fa fa-sign-out"></i>Iniciar Sesion/Registrarse</a></li>        
+                            <%} else {%>
                         <li><a href="controlCerrarSesion"><i class="fa fa-sign-out"></i>Cerrar Sesion</a></li>
+                        <%}%>
                     </ul>
                 </div>
             </div>
@@ -376,7 +380,7 @@
                             <%if (listaCarrito.isEmpty()) {%>       
                             <%} else {
                                 if (usuario.equals("invitado")) {%>
-                                <p class="alert-warning"><b>¡Debes iniciar sesión para poder realizar el pedido!</b></p>
+                                <h3 class="alert-danger"><b>¡Debes iniciar sesión para poder realizar el pedido!</b></h3>
                                 <%} else {
                             %>
                             <input type="submit" class="primary-btn order-submit" style="width: 100%" value="Realizar Pedido">

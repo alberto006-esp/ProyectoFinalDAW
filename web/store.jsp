@@ -66,7 +66,8 @@
                     rd = contexto.getRequestDispatcher("/index.html");
                     rd.forward(request, response);
                 }*/
-                if (usuario == null)usuario="invitado";
+                    if (usuario == null)
+                        usuario = "invitado";
             %>
             <div id="top-header">
                 <div class="container">
@@ -78,7 +79,11 @@
                     <ul class="header-links pull-right" style="color: white">
                         <li><i class="fa fa-euro"></i> Euros</li>
                         <li><i class="fa fa-user-o"></i> <%=usuario%></li>
+                       <%if (usuario.equals("invitado")) {%>
+                        <li><a href="index.html"><i class="fa fa-sign-out"></i>Iniciar Sesion/Registrarse</a></li>        
+                            <%}else{%>
                         <li><a href="controlCerrarSesion"><i class="fa fa-sign-out"></i>Cerrar Sesion</a></li>
+                        <%}%>
                     </ul>
                 </div>
             </div>

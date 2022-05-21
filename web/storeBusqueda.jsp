@@ -50,20 +50,22 @@
     </head>
     <body>
         <!-- HEADER -->
-         <%
-            
-            HttpSession sesion=request.getSession();
-    
-     String usuario=(String) sesion.getAttribute("usuario");
+        <%
 
-    if(usuario == null){
+            HttpSession sesion = request.getSession();
 
-        RequestDispatcher rd;
-        ServletContext contexto = getServletContext();
-        rd= contexto.getRequestDispatcher("/index.html");
-        rd.forward(request, response);
-        }
-            %>
+            String usuario = (String) sesion.getAttribute("usuario");
+
+            /*if (usuario == null) {
+
+                   RequestDispatcher rd;
+                   ServletContext contexto = getServletContext();
+                   rd = contexto.getRequestDispatcher("/index.html");
+                   rd.forward(request, response);
+               }*/
+            if (usuario == null)
+                usuario = "invitado";
+        %>
         <header>
             <!-- TOP HEADER -->
             <div id="top-header">
@@ -75,9 +77,12 @@
                     </ul>
                     <ul class="header-links pull-right" style="color: white">
                         <li><i class="fa fa-euro"></i> Euros</li>
-                            
-                        <li><i class="fa fa-user-o"></i> <%=sesion.getAttribute("usuario")%></li>
+                        <li><i class="fa fa-user-o"></i> <%=usuario%></li>
+                            <%if (usuario.equals("invitado")) {%>
+                        <li><a href="index.html"><i class="fa fa-sign-out"></i>Iniciar Sesion/Registrarse</a></li>        
+                            <%} else {%>
                         <li><a href="controlCerrarSesion"><i class="fa fa-sign-out"></i>Cerrar Sesion</a></li>
+                            <%}%>
                     </ul>
                 </div>
             </div>
@@ -122,18 +127,18 @@
                         <div class="col-md-3 clearfix">
                             <div class="header-ctn">
 
-                                
+
                                 <!-- Cart -->
-                                <%  ServletContext contexto= getServletContext();
-                                    List<Producto> listaCarrito=(List)contexto.getAttribute("listaCarrito");
-                                double costeTotal=0;
-                                int cantidadTotal=0;
-                                 if (listaCarrito==null) {
-                                        listaCarrito=new ArrayList<Producto>();
+                                <%  ServletContext contexto = getServletContext();
+                                    List<Producto> listaCarrito = (List) contexto.getAttribute("listaCarrito");
+                                    double costeTotal = 0;
+                                    int cantidadTotal = 0;
+                                    if (listaCarrito == null) {
+                                        listaCarrito = new ArrayList<Producto>();
                                     }
-                                int cantidadCarrito=0;
-                                for (int x = 0; x < listaCarrito.size(); x++) {
-                                        cantidadCarrito+=listaCarrito.get(x).getCantidad();
+                                    int cantidadCarrito = 0;
+                                    for (int x = 0; x < listaCarrito.size(); x++) {
+                                        cantidadCarrito += listaCarrito.get(x).getCantidad();
                                     }
                                 %>
                                 <div class="dropdown">
@@ -147,32 +152,32 @@
                                         <div class="cart-list">
                                             <h3 class="product-name">CARRITO VACIO</h3>
                                         </div>
-                                    <%} else {%>
+                                        <%} else {%>
                                         <div class="cart-list">
-                                            
-                                            <%  double precioFinal=0;
-                                                double precioTotal=0;
+
+                                            <%  double precioFinal = 0;
+                                                double precioTotal = 0;
                                                 for (Producto pro : listaCarrito) {
-                                                    precioFinal=pro.getPrecio()-(pro.getDescuento()*pro.getPrecio());
+                                                    precioFinal = pro.getPrecio() - (pro.getDescuento() * pro.getPrecio());
                                             %>
                                             <form action="BorrarArtCarrito" method="post">
-                                            <div class="product-widget">
-                                                <div class="product-img">
-                                                    <img src="img/<%=pro.getFoto()%>" alt="">
-                                                </div>
-                                                <div class="product-body">
-                                                    <h3 class="product-name"><a href="controlVistaProducto?nombreProducto=<%=pro.getNombre()%>"><%=pro.getNombre()%></a></h3>
-                                                    <h4 class="product-price"><span class="qty"><%=pro.getCantidad()%> X</span><%=precioFinal%>€</h4>
-                                                </div>
-                                                
+                                                <div class="product-widget">
+                                                    <div class="product-img">
+                                                        <img src="img/<%=pro.getFoto()%>" alt="">
+                                                    </div>
+                                                    <div class="product-body">
+                                                        <h3 class="product-name"><a href="controlVistaProducto?nombreProducto=<%=pro.getNombre()%>"><%=pro.getNombre()%></a></h3>
+                                                        <h4 class="product-price"><span class="qty"><%=pro.getCantidad()%> X</span><%=precioFinal%>€</h4>
+                                                    </div>
+
                                                     <input hidden="true" type="text" name="borrarArtCarrito" value="<%=pro.getNombre()%>">
                                                     <button type="submit" class="delete"><i class="fa fa-close"></i></button>
-                                            </div>
-                                                    </form>
-                                           <%      cantidadTotal+=pro.getCantidad();
-                                                   precioTotal=precioFinal * pro.getCantidad();
-                                                   costeTotal+=precioTotal;
-                                            }%>
+                                                </div>
+                                            </form>
+                                            <%      cantidadTotal += pro.getCantidad();
+                                                    precioTotal = precioFinal * pro.getCantidad();
+                                                    costeTotal += precioTotal;
+                                               }%>
                                         </div>
                                         <%}%>
                                         <div class="cart-summary">
@@ -180,12 +185,12 @@
                                             <h5>SUBTOTAL: <%=costeTotal%>€</h5>
                                         </div>
                                         <div class="cart-btns">
-                                            
+
                                             <a href="carrito.jsp">Ver Carrito</a>
                                         </div>
                                     </div>
                                 </div>
-                                
+
                                 <!-- /Cart -->
 
                                 <!-- Menu Toogle -->
@@ -261,7 +266,7 @@
                     <!-- ASIDE -->
                     <div id="aside" class="col-md-3">
                         <!-- aside Widget -->
-                        
+
                         <!-- /aside Widget -->
 
                         <!-- aside Widget -->
@@ -269,36 +274,36 @@
                             <h3 class="aside-title">Price</h3>
                             <div class="price-filter">
                                 <form action="controlBusquedaPorPrecio" method="post">
-                                <div id="price-slider"></div>
-                                <div class="input-number price-min">
-                                    <input id="price-min" name="precioMinimo" type="number">
-                                    <span class="qty-up">+</span>
-                                    <span class="qty-down">-</span>
-                                </div>
-                                <span>-</span>
-                                <div class="input-number price-max">
-                                    <input id="price-max" name="precioMaximo" type="number">
-                                    <span class="qty-up">+</span>
-                                    <span class="qty-down">-</span>
-                                </div>
-                                <input type="submit" name="buscar por precio" value="buscar por precio" class="btn btn-danger" style="margin-top: 10%"t>
+                                    <div id="price-slider"></div>
+                                    <div class="input-number price-min">
+                                        <input id="price-min" name="precioMinimo" type="number">
+                                        <span class="qty-up">+</span>
+                                        <span class="qty-down">-</span>
+                                    </div>
+                                    <span>-</span>
+                                    <div class="input-number price-max">
+                                        <input id="price-max" name="precioMaximo" type="number">
+                                        <span class="qty-up">+</span>
+                                        <span class="qty-down">-</span>
+                                    </div>
+                                    <input type="submit" name="buscar por precio" value="buscar por precio" class="btn btn-danger" style="margin-top: 10%"t>
                                 </form>
                             </div>
                         </div>
                         <!-- /aside Widget -->
 
                         <!-- aside Widget -->
-                        
+
                         <!-- /aside Widget -->
 
                         <!-- aside Widget -->
                         <div class="aside">
                             <h3 class="aside-title">Top Ventas</h3>
-                            <% int idProductosMasVendidos[]=BDD.buscarIdProductosMasVendidos(); 
-                               List<Producto> listaProductosMasVendidos=BDD.buscarProductosMasVendidos(idProductosMasVendidos);
-                               for (Producto p : listaProductosMasVendidos) {
-                                       
-                                   
+                            <% int idProductosMasVendidos[] = BDD.buscarIdProductosMasVendidos();
+                                List<Producto> listaProductosMasVendidos = BDD.buscarProductosMasVendidos(idProductosMasVendidos);
+                                for (Producto p : listaProductosMasVendidos) {
+
+
                             %>
                             <div class="product-widget">
                                 <div class="product-img">
@@ -307,17 +312,17 @@
                                 <div class="product-body">
                                     <p class="product-category"><%=p.getCategoria()%></p>
                                     <h3 class="product-name"><a href="controlVistaProducto?nombreProducto=<%=p.getNombre()%>"><%=p.getNombre()%></a></h3>
-                                     <% if (p.getDescuento() > 0) {
-                                             double descuento= p.getDescuento();
-                                             double precio=p.getPrecio();
-                                             double precioFinal=precio-(descuento*precio);%>
+                                        <% if (p.getDescuento() > 0) {
+                                                double descuento = p.getDescuento();
+                                                double precio = p.getPrecio();
+                                                double precioFinal = precio - (descuento * precio);%>
                                     <h4 class="product-price"><%=precioFinal%>€<del class="product-old-price"><%=precio%>€</del></h4> 
                                     <%} else {%>
                                     <h4 class="product-price"><%=p.getPrecio()%>€</h4>
-                                        <%}%>
+                                    <%}%>
                                 </div>
                             </div>
-                             <%}%>   
+                            <%}%>   
                         </div>
                         <!-- /aside Widget -->
                     </div>
@@ -342,70 +347,70 @@
                         <!-- store products -->
                         <div class="row">
                             <div id="paginacion" class="text-center">
-                               <%  
-                            List<Producto> listaBusqueda =(List<Producto>) contexto.getAttribute("listaBusqueda");
-                        int cont=0;
-                            for (Producto p : listaBusqueda) {
-                                cont++;
-                        %>
-                            <!-- product -->
-                            <div class="col-md-4 col-xs-6 ">
-                                <div class="product">
-                                    <form action="AddCarrito" method="post">
-                                    <div class="product-img">
-                                        <img src="img/<%=p.getFoto()%>" width="100px" height="225px" alt="">
-                                        <div class="product-label">
-                                            <% if (p.getDescuento() > 0) {
-                                            double doublePorcentaje=p.getDescuento()*100;
-                                            int porcentaje=(int)doublePorcentaje;
-                                            %>
-                                            <span class="sale">-<%=porcentaje%>%</span>
-                                            <%}else{%>
-                                            <span class="new">NUEVO</span>
-                                            <%}%>
-                                        </div>
-                                    </div>
-                                    <div class="product-body">
-                                        <p class="product-category"><%=p.getCategoria()%></p>
-                                        <h3 class="product-name"><a href="controlVistaProducto?nombreProducto=<%=p.getNombre()%>"><%=p.getNombre()%></a></h3>
-                                            <% if (p.getDescuento() > 0) {
-                                             double descuento= p.getDescuento();
-                                             double precio=p.getPrecio();
-                                             double precioFinal=precio-(descuento*precio);%>
-                                        <h4 class="product-price"><%=precioFinal%>€<del class="product-old-price"><%=precio%>€</del></h4>   
-                                        <%} else {%>
-                                        <h4 class="product-price"><%=p.getPrecio()%>€</h4>
-                                        <%}%>
-                                        <input hidden="true" type="text" name="nombreProducto" value="<%=p.getNombre()%>">
-                                    </div>
-                                    <div class="add-to-cart">
-                                        <%String URL= request.getRequestURI();//lo metemos en una variable y lo hacemos atributo para mandarlo y asi saber de donde viene la peticion en el Servlet.
-                                        contexto.setAttribute("URL", URL);
-                                        %>
-                                        <button type="submit" id="anadirCarrito" class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> Añadir al carrito</button>
-                                    </div>
+                                <%
+                                    List<Producto> listaBusqueda = (List<Producto>) contexto.getAttribute("listaBusqueda");
+                                    int cont = 0;
+                                    for (Producto p : listaBusqueda) {
+                                        cont++;
+                                %>
+                                <!-- product -->
+                                <div class="col-md-4 col-xs-6 ">
+                                    <div class="product">
+                                        <form action="AddCarrito" method="post">
+                                            <div class="product-img">
+                                                <img src="img/<%=p.getFoto()%>" width="100px" height="225px" alt="">
+                                                <div class="product-label">
+                                                    <% if (p.getDescuento() > 0) {
+                                                            double doublePorcentaje = p.getDescuento() * 100;
+                                                            int porcentaje = (int) doublePorcentaje;
+                                                    %>
+                                                    <span class="sale">-<%=porcentaje%>%</span>
+                                                    <%} else {%>
+                                                    <span class="new">NUEVO</span>
+                                                    <%}%>
+                                                </div>
+                                            </div>
+                                            <div class="product-body">
+                                                <p class="product-category"><%=p.getCategoria()%></p>
+                                                <h3 class="product-name"><a href="controlVistaProducto?nombreProducto=<%=p.getNombre()%>"><%=p.getNombre()%></a></h3>
+                                                    <% if (p.getDescuento() > 0) {
+                                                    double descuento = p.getDescuento();
+                                                    double precio = p.getPrecio();
+                                                    double precioFinal = precio - (descuento * precio);%>
+                                                <h4 class="product-price"><%=precioFinal%>€<del class="product-old-price"><%=precio%>€</del></h4>   
+                                                <%} else {%>
+                                                <h4 class="product-price"><%=p.getPrecio()%>€</h4>
+                                                <%}%>
+                                                <input hidden="true" type="text" name="nombreProducto" value="<%=p.getNombre()%>">
+                                            </div>
+                                            <div class="add-to-cart">
+                                                <%String URL = request.getRequestURI();//lo metemos en una variable y lo hacemos atributo para mandarlo y asi saber de donde viene la peticion en el Servlet.
+                                                    contexto.setAttribute("URL", URL);
+                                                %>
+                                                <button type="submit" id="anadirCarrito" class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> Añadir al carrito</button>
+                                            </div>
                                         </form>
+                                    </div>
                                 </div>
-                            </div>
-                            <!-- /product -->
-                            
-                            <%}%>
-                        </div>
-                        <!-- /store products -->
+                                <!-- /product -->
 
-                        <!-- store bottom filter -->
-                        <!--<div class="store-filter clearfix">
-                            <span class="store-qty">Showing 20-100 products</span>
-                            <ul class="store-pagination">
-                                <li class="active">1</li>
-                                <li><a href="#">2</a></li>
-                                <li><a href="#">3</a></li>
-                                <li><a href="#">4</a></li>
-                                <li><a href="#"><i class="fa fa-angle-right"></i></a></li>
-                            </ul>
-                        </div>-->
-                        <!-- /store bottom filter -->
-                     </div>   
+                                <%}%>
+                            </div>
+                            <!-- /store products -->
+
+                            <!-- store bottom filter -->
+                            <!--<div class="store-filter clearfix">
+                                <span class="store-qty">Showing 20-100 products</span>
+                                <ul class="store-pagination">
+                                    <li class="active">1</li>
+                                    <li><a href="#">2</a></li>
+                                    <li><a href="#">3</a></li>
+                                    <li><a href="#">4</a></li>
+                                    <li><a href="#"><i class="fa fa-angle-right"></i></a></li>
+                                </ul>
+                            </div>-->
+                            <!-- /store bottom filter -->
+                        </div>   
                     </div>
                     <!-- /STORE -->
                 </div>
@@ -423,7 +428,7 @@
                 <div class="row">
                     <div class="col-md-12">
                         <div class="newsletter">
-                          
+
                             <ul class="newsletter-follow">
                                 <li>
                                     <a href="https://es-es.facebook.com/"><i class="fa fa-facebook"></i></a>
@@ -456,15 +461,15 @@
                     <!-- row -->
                     <div class="row">
                         <div class="footer">
-                                <h3 class="footer-title">Sobre Nosotros</h3>
-                                <h4 class=" footer-title">Electro Master S.A.</h4>
-                                <p>Fundada en 1980, somos una empresa familiar que empezó como una tienda pequeña de productos electrónicos en Sevila y que con la entrada de las nuevas tecnologías y la venta online nos expandimos a la mayor parte de España.</p>
-                                <ul class="header-links">
-                                    <li><i class="fa fa-map-marker"></i>Cl. Banda Playa, 65, 11540 Sanlúcar de Barrameda, Cádiz</li>
-                                    <li><i class="fa fa-phone"></i> 956-36-85-16</li>
-                                    <li><i class="fa fa-envelope-o"></i> electro_master@gmail.com</li>
-                                </ul>
-                            </div>
+                            <h3 class="footer-title">Sobre Nosotros</h3>
+                            <h4 class=" footer-title">Electro Master S.A.</h4>
+                            <p>Fundada en 1980, somos una empresa familiar que empezó como una tienda pequeña de productos electrónicos en Sevila y que con la entrada de las nuevas tecnologías y la venta online nos expandimos a la mayor parte de España.</p>
+                            <ul class="header-links">
+                                <li><i class="fa fa-map-marker"></i>Cl. Banda Playa, 65, 11540 Sanlúcar de Barrameda, Cádiz</li>
+                                <li><i class="fa fa-phone"></i> 956-36-85-16</li>
+                                <li><i class="fa fa-envelope-o"></i> electro_master@gmail.com</li>
+                            </ul>
+                        </div>
                         <%@include file="APIMAPSearchBox.html" %>
                     </div>
                     <!-- /row -->
@@ -509,13 +514,13 @@
         <script src="js/nouislider.min.js"></script>
         <script src="js/jquery.zoom.min.js"></script>
         <script src="js/main.js"></script>
-        
+
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
         <script type="text/javascript" src="js/jQuery.paginate.js"></script>
         <script>
-     $('#paginacion').paginate({
-        	items_per_page: 9
-        });
+                                    $('#paginacion').paginate({
+                                        items_per_page: 9
+                                    });
         </script>
     </body>
 </html>
