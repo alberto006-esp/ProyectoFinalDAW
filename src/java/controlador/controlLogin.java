@@ -76,14 +76,17 @@ public class controlLogin extends HttpServlet {
         String usuario=request.getParameter("usuario");
         String pass=request.getParameter("pass");
         String clave=BDD.buscarUsuario(usuario);
-        if(clave!=null){
-        boolean matched = BCrypt.checkpw(pass, clave);
+        boolean matched=false;
+        if(!clave.equals("")){
+         matched = BCrypt.checkpw(pass, clave);
+        }
         if (matched==true) {
             HttpSession sesionantigua=request.getSession();
             sesionantigua.invalidate();
             HttpSession sesion=request.getSession();
             sesion.setAttribute("usuario", usuario);
-            if (usuario.equals("admin")) {
+            String tipoUsuario=BDD.buscarTipoUsuario(usuario);
+            if (tipoUsuario.equals("admin")) {
              rd=request.getRequestDispatcher("/storeAdmin.jsp");
              rd.forward(request, response); 
             } else {
@@ -98,7 +101,7 @@ public class controlLogin extends HttpServlet {
             rd=request.getRequestDispatcher("/errorLogin.jsp");
             rd.forward(request, response);
         }
-        }
+        
     }
     
 

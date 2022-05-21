@@ -188,19 +188,19 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <% for (Usuario usuario : listaClientes) {
-                        if (usuario.getTipo().equals("user")) {      
+                    <% for (Usuario usu : listaClientes) {
+                        if (usu.getTipo().equals("user")) {      
                     %>
                         
                     <tr>
-                        <th scope="row"><%=usuario.getNombre()%></th>
-                        <td><%=usuario.getApellidos()%></td>
-                        <td><%=usuario.getEmail()%></td>
-                        <td><%=usuario.getUsuario()%></td>
-                        <td><%=usuario.getDireccion()%></td>
-                        <td><%=usuario.getTelefono()%></td>
+                        <th scope="row"><%=usu.getNombre()%></th>
+                        <td><%=usu.getApellidos()%></td>
+                        <td><%=usu.getEmail()%></td>
+                        <td><%=usu.getUsuario()%></td>
+                        <td><%=usu.getDireccion()%></td>
+                        <td><%=usu.getTelefono()%></td>
                                 <td><form action="controlPedidosUnCliente" method="post">
-                                        <input hidden="true" type="text" name="nombreCliente" value="<%=usuario.getUsuario()%>">
+                                        <input hidden="true" type="text" name="nombreCliente" value="<%=usu.getUsuario()%>">
                                         <input type="submit" name="name" value="seleccionar" class="btn btn-danger">
                             </form></td>
                     </tr>

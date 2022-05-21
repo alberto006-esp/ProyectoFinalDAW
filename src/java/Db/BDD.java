@@ -549,6 +549,24 @@ public class BDD {
         }
         return listaProductosEnOferta;
     }
+
+    public static String buscarTipoUsuario(String usuario) {
+       String tipoUsuario = "";
+        Connection cnn = crearConexion();
+        String sentenciaSQL = "SELECT usuario_tipo FROM usuario WHERE usuario_user='" + usuario + "'";
+        try {
+            Statement stm = cnn.createStatement();
+            ResultSet rs = stm.executeQuery(sentenciaSQL);
+
+            if (rs.next()) {
+                tipoUsuario = rs.getString("usuario_tipo");
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(BDD.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return tipoUsuario;
+    }
     
     
 }
