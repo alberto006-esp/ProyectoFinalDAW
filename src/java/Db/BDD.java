@@ -92,7 +92,7 @@ public class BDD {
             }
 
         } catch (SQLException e) {
-             System.out.println(e.getMessage());
+            System.out.println(e.getMessage());
         }
         return listaProductos;
     }
@@ -123,9 +123,9 @@ public class BDD {
         try {
             cnn = crearConexion();
             if (categoria.equals("all")) {
-                sql = "SELECT producto_id,producto_nombre,categoria_nombre,producto_detalle,producto_precio,producto_descuento,producto_foto FROM producto P INNER JOIN categoria C ON P.categoria_id=C.categoria_id WHERE producto_nombre LIKE '" + busqueda + "%'";
+                sql = "SELECT producto_id,producto_nombre,categoria_nombre,producto_detalle,producto_precio,producto_descuento,producto_foto FROM producto P INNER JOIN categoria C ON P.categoria_id=C.categoria_id WHERE producto_nombre LIKE '%" + busqueda + "%'";
             } else {
-                sql = "SELECT producto_id,producto_nombre,categoria_nombre,producto_detalle,producto_precio,producto_descuento,producto_foto FROM producto P INNER JOIN categoria C ON P.categoria_id=C.categoria_id WHERE producto_nombre LIKE '" + busqueda + "%' AND categoria_nombre='" + categoria + "'";
+                sql = "SELECT producto_id,producto_nombre,categoria_nombre,producto_detalle,producto_precio,producto_descuento,producto_foto FROM producto P INNER JOIN categoria C ON P.categoria_id=C.categoria_id WHERE producto_nombre LIKE '%" + busqueda + "%' AND categoria_nombre='" + categoria + "'";
             }
             Statement st = cnn.createStatement();
             ResultSet rs = st.executeQuery(sql);
@@ -386,7 +386,7 @@ public class BDD {
         ArrayList<Producto> listaProductos = new ArrayList<>();
         ArrayList<Producto> listaProductosRelacionadosAleatorios = new ArrayList<>();
         Connection cnn = null;
-        String nombre="";
+        String nombre = "";
         try {
             cnn = crearConexion();
             String sentemciaSQL = "SELECT producto_id,producto_nombre,categoria_nombre,producto_detalle,producto_precio,producto_descuento,producto_foto FROM producto P,categoria C WHERE P.categoria_id=C.categoria_id AND categoria_nombre='" + categoria + "'";
@@ -395,10 +395,10 @@ public class BDD {
             listaProductos.clear();
             while (rs.next()) {
                 Producto p = new Producto(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getDouble(5), rs.getDouble(6), rs.getString(7));
-                nombre=p.getNombre();
+                nombre = p.getNombre();
                 if (!nombre.equals(nombreProducto)) {//lo hacemos para evitar que aparezca en los productos relacionados el mismo producto que hemos seleccionado.
-                   listaProductos.add(p);
-                }    
+                    listaProductos.add(p);
+                }
             }
 
         } catch (SQLException e) {
@@ -421,17 +421,17 @@ public class BDD {
                     }
                 }
             } while (repetido);
-            repetido=false;
+            repetido = false;
             arrayIndiceAleatorio[x] = indiceAleatorio;
-        Producto pro=listaProductos.get(arrayIndiceAleatorio[x]);
-        listaProductosRelacionadosAleatorios.add(pro);
+            Producto pro = listaProductos.get(arrayIndiceAleatorio[x]);
+            listaProductosRelacionadosAleatorios.add(pro);
         }
-        
+
         return listaProductosRelacionadosAleatorios;
     }
 
     public static List<Producto> buscarProductosPorCategoria(String categoria) {
-        List<Producto> listaProductosPorCategoria=new ArrayList<Producto>();
+        List<Producto> listaProductosPorCategoria = new ArrayList<Producto>();
         Connection cnn = null;
         try {
             cnn = crearConexion();
@@ -445,72 +445,72 @@ public class BDD {
             }
 
         } catch (SQLException e) {
-             System.out.println(e.getMessage());
+            System.out.println(e.getMessage());
         }
-        
+
         return listaProductosPorCategoria;
     }
-    
+
     public static int[] buscarIdProductosMasVendidos() {
-        int idProductosMasVendidos[]=new int[6];
+        int idProductosMasVendidos[] = new int[6];
         Connection cnn = null;
-        int cont=0;
-         try {
-        cnn = crearConexion();
-        String sql="SELECT producto_id, SUM(detalle_cantidad) AS cantidadTotal FROM detallepedido GROUP BY producto_id ORDER BY SUM(detalle_cantidad) DESC LIMIT 6";
-        Statement st = cnn.createStatement();
-        ResultSet rs = st.executeQuery(sql);
-          while (rs.next()) {
-                idProductosMasVendidos[cont]=rs.getInt("producto_id");
+        int cont = 0;
+        try {
+            cnn = crearConexion();
+            String sql = "SELECT producto_id, SUM(detalle_cantidad) AS cantidadTotal FROM detallepedido GROUP BY producto_id ORDER BY SUM(detalle_cantidad) DESC LIMIT 6";
+            Statement st = cnn.createStatement();
+            ResultSet rs = st.executeQuery(sql);
+            while (rs.next()) {
+                idProductosMasVendidos[cont] = rs.getInt("producto_id");
                 cont++;
             }
 
         } catch (SQLException e) {
-             System.out.println(e.getMessage());
+            System.out.println(e.getMessage());
         }
         return idProductosMasVendidos;
     }
-    
+
     public static List<Producto> buscarProductosMasVendidos(int[] idProductosMasVendidos) {
-        List<Producto> listaProductosMasVendidos=new ArrayList<Producto>();
+        List<Producto> listaProductosMasVendidos = new ArrayList<Producto>();
         Connection cnn = null;
         try {
-        cnn = crearConexion();
+            cnn = crearConexion();
             for (int x = 0; x < idProductosMasVendidos.length; x++) {
-                String sql="SELECT producto_id,producto_nombre,categoria_nombre,producto_detalle,producto_precio,producto_descuento,producto_foto FROM producto P,categoria C WHERE P.categoria_id=C.categoria_id AND producto_id='" + idProductosMasVendidos[x] + "'";
+                String sql = "SELECT producto_id,producto_nombre,categoria_nombre,producto_detalle,producto_precio,producto_descuento,producto_foto FROM producto P,categoria C WHERE P.categoria_id=C.categoria_id AND producto_id='" + idProductosMasVendidos[x] + "'";
                 Statement st = cnn.createStatement();
                 ResultSet rs = st.executeQuery(sql);
                 if (rs.next()) {
-                Producto p = new Producto(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getDouble(5), rs.getDouble(6), rs.getString(7));
-                listaProductosMasVendidos.add(p);
+                    Producto p = new Producto(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getDouble(5), rs.getDouble(6), rs.getString(7));
+                    listaProductosMasVendidos.add(p);
                 }
             }
         } catch (SQLException e) {
-             System.out.println(e.getMessage());
+            System.out.println(e.getMessage());
         }
         return listaProductosMasVendidos;
-        
+
     }
 
     public static List<Producto> buscarProductosPorPrecio(double precioMinimo, double precioMaximo) {
-        List<Producto> listaBusqueda=new ArrayList<Producto>();
+        List<Producto> listaBusqueda = new ArrayList<Producto>();
         Connection cnn = null;
         try {
-        cnn = crearConexion();
-              String sql="SELECT producto_id,producto_nombre,categoria_nombre,producto_detalle,producto_precio,producto_descuento,producto_foto FROM producto P,categoria C WHERE P.categoria_id=C.categoria_id AND producto_precio>='" + precioMinimo + "' AND producto_precio<='" + precioMaximo + "'";
-              Statement st = cnn.createStatement();
-              ResultSet rs = st.executeQuery(sql);
-              while (rs.next()) {
-              Producto p = new Producto(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getDouble(5), rs.getDouble(6), rs.getString(7));
-              listaBusqueda.add(p);
-                }
-            
+            cnn = crearConexion();
+            String sql = "SELECT producto_id,producto_nombre,categoria_nombre,producto_detalle,producto_precio,producto_descuento,producto_foto FROM producto P,categoria C WHERE P.categoria_id=C.categoria_id AND producto_precio>='" + precioMinimo + "' AND producto_precio<='" + precioMaximo + "'";
+            Statement st = cnn.createStatement();
+            ResultSet rs = st.executeQuery(sql);
+            while (rs.next()) {
+                Producto p = new Producto(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getDouble(5), rs.getDouble(6), rs.getString(7));
+                listaBusqueda.add(p);
+            }
+
         } catch (SQLException e) {
-             System.out.println(e.getMessage());
+            System.out.println(e.getMessage());
         }
-        return listaBusqueda;   
+        return listaBusqueda;
     }
-    
+
     public static Usuario buscarDatosUsuario(String nombreUsuario) {
         String clave = null;
         Connection cnn = crearConexion();
@@ -521,7 +521,7 @@ public class BDD {
             ResultSet rs = stm.executeQuery(sentenciaSQL);
 
             if (rs.next()) {
-                usu=new Usuario(rs.getString("usuario_nombre"), rs.getString("usuario_apellidos"), rs.getString("usuario_tipo"), rs.getString("usuario_email"), rs.getString("usuario_user"), rs.getString("usuario_password"), rs.getString("usuario_direccion"), rs.getInt("usuario_telefono"));
+                usu = new Usuario(rs.getString("usuario_nombre"), rs.getString("usuario_apellidos"), rs.getString("usuario_tipo"), rs.getString("usuario_email"), rs.getString("usuario_user"), rs.getString("usuario_password"), rs.getString("usuario_direccion"), rs.getInt("usuario_telefono"));
             }
 
         } catch (SQLException ex) {
@@ -531,7 +531,7 @@ public class BDD {
     }
 
     public static List<Producto> buscarProductosEnOferta() {
-        List<Producto> listaProductosEnOferta=new ArrayList<Producto>();
+        List<Producto> listaProductosEnOferta = new ArrayList<Producto>();
         Connection cnn = null;
         try {
             cnn = crearConexion();
@@ -545,13 +545,13 @@ public class BDD {
             }
 
         } catch (SQLException e) {
-             System.out.println(e.getMessage());
+            System.out.println(e.getMessage());
         }
         return listaProductosEnOferta;
     }
 
     public static String buscarTipoUsuario(String usuario) {
-       String tipoUsuario = "";
+        String tipoUsuario = "";
         Connection cnn = crearConexion();
         String sentenciaSQL = "SELECT usuario_tipo FROM usuario WHERE usuario_user='" + usuario + "'";
         try {
@@ -567,6 +567,5 @@ public class BDD {
         }
         return tipoUsuario;
     }
-    
-    
+
 }
