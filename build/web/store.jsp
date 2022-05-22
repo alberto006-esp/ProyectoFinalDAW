@@ -21,7 +21,7 @@
 
         <title>Electro Master Store</title>
         <link href='http://fonts.googleapis.com/css?family=Roboto+Slab&subset=latin,greek' rel='stylesheet' type='text/css'>
-        <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css" rel="stylesheet">
+        <!--<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css" rel="stylesheet">-->
         <link href="css/main.css" rel="stylesheet" type="text/css" />
         <!-- Google font -->
         <link href="https://fonts.googleapis.com/css?family=Montserrat:400,500,700" rel="stylesheet">
@@ -66,8 +66,8 @@
                     rd = contexto.getRequestDispatcher("/index.html");
                     rd.forward(request, response);
                 }*/
-                    if (usuario == null)
-                        usuario = "invitado";
+                if (usuario == null)
+                    usuario = "invitado";
             %>
             <div id="top-header">
                 <div class="container">
@@ -79,11 +79,11 @@
                     <ul class="header-links pull-right" style="color: white">
                         <li><i class="fa fa-euro"></i> Euros</li>
                         <li><i class="fa fa-user-o"></i> <%=usuario%></li>
-                       <%if (usuario.equals("invitado")) {%>
+                            <%if (usuario.equals("invitado")) {%>
                         <li><a href="index.html"><i class="fa fa-sign-in"></i>Iniciar Sesion/Registrarse</a></li>        
-                            <%}else{%>
+                            <%} else {%>
                         <li><a href="controlCerrarSesion"><i class="fa fa-sign-out"></i>Cerrar Sesion</a></li>
-                        <%}%>
+                            <%}%>
                     </ul>
                 </div>
             </div>
@@ -92,7 +92,7 @@
             <!-- MAIN HEADER -->
             <div id="header">
                 <!-- container -->
-                <div class="container">
+                <div class="container"> 
                     <!-- row -->
                     <div class="row">
                         <!-- LOGO -->
@@ -188,7 +188,7 @@
                                             <%
                                                 costeTotal = Math.round(costeTotal * 100.0) / 100.0;
                                                 // String result = String .format("%.2f");
-%>
+                                            %>
                                             <h5>SUBTOTAL: <%=costeTotal%>€</h5>
                                         </div>
                                         <div class="cart-btns">
@@ -274,7 +274,7 @@
             </div>  
         </div>
         <%contexto.removeAttribute("mensajePedido");
-                         }%>
+            }%>
 
         <!-- SECTION -->
         <div class="section">
@@ -393,9 +393,9 @@
                                                 <p class="product-category"><%=p.getCategoria()%></p>
                                                 <h3 class="product-name"><a href="controlVistaProducto?nombreProducto=<%=p.getNombre()%>"><%=p.getNombre()%></a></h3>
                                                     <% if (p.getDescuento() > 0) {
-                                                    double descuento = p.getDescuento();
-                                                    double precio = p.getPrecio();
-                                                    double precioFinal = precio - (descuento * precio);%>
+                                                            double descuento = p.getDescuento();
+                                                            double precio = p.getPrecio();
+                                                            double precioFinal = precio - (descuento * precio);%>
                                                 <h4 class="product-price"><%=precioFinal%>€<del class="product-old-price"><%=precio%>€</del></h4>   
                                                 <%} else {%>
                                                 <h4 class="product-price"><%=p.getPrecio()%>€</h4>
