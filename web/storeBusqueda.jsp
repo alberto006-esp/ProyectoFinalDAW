@@ -177,7 +177,7 @@
                                             <%      cantidadTotal += pro.getCantidad();
                                                     precioTotal = precioFinal * pro.getCantidad();
                                                     costeTotal += precioTotal;
-                                               }%>
+                                                }%>
                                         </div>
                                         <%}%>
                                         <div class="cart-summary">
@@ -270,6 +270,8 @@
                         <!-- /aside Widget -->
 
                         <!-- aside Widget -->
+                        <% List<Producto> listaBusqueda = (List<Producto>) contexto.getAttribute("listaBusqueda");
+                            contexto.setAttribute("listaProductosStore", listaBusqueda);%>
                         <div class="aside">
                             <h3 class="aside-title">Filtrar por precio</h3>
                             <div class="price-filter">
@@ -348,7 +350,6 @@
                         <div class="row">
                             <div id="paginacion" class="text-center">
                                 <%
-                                    List<Producto> listaBusqueda = (List<Producto>) contexto.getAttribute("listaBusqueda");
                                     int cont = 0;
                                     for (Producto p : listaBusqueda) {
                                         cont++;
@@ -374,9 +375,9 @@
                                                 <p class="product-category"><%=p.getCategoria()%></p>
                                                 <h3 class="product-name"><a href="controlVistaProducto?nombreProducto=<%=p.getNombre()%>"><%=p.getNombre()%></a></h3>
                                                     <% if (p.getDescuento() > 0) {
-                                                    double descuento = p.getDescuento();
-                                                    double precio = p.getPrecio();
-                                                    double precioFinal = precio - (descuento * precio);%>
+                                                            double descuento = p.getDescuento();
+                                                            double precio = p.getPrecio();
+                                                            double precioFinal = precio - (descuento * precio);%>
                                                 <h4 class="product-price"><%=precioFinal%>€<del class="product-old-price"><%=precio%>€</del></h4>   
                                                 <%} else {%>
                                                 <h4 class="product-price"><%=p.getPrecio()%>€</h4>

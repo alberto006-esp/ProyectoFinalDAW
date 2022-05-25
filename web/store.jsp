@@ -188,7 +188,7 @@
                                             <%
                                                 costeTotal = Math.round(costeTotal * 100.0) / 100.0;
                                                 // String result = String .format("%.2f");
-                                            %>
+%>
                                             <h5>SUBTOTAL: <%=costeTotal%>€</h5>
                                         </div>
                                         <div class="cart-btns">
@@ -289,6 +289,9 @@
                         <!-- /aside Widget -->
 
                         <!-- aside Widget -->
+                        <%List<Producto> listaProductos = BDD.buscarProductos();
+                            contexto.setAttribute("listaProductosStore", listaProductos);
+                        %>
                         <div class="aside">
                             <h3 class="aside-title">Filtrar por precio</h3>
                             <div class="price-filter">
@@ -367,7 +370,7 @@
 
                         <div class="row">
                             <div id="paginacion">
-                                <% List<Producto> listaProductos = BDD.buscarProductos();
+                                <%
                                     int cont = 0;
                                     for (Producto p : listaProductos) {
                                         cont++;
@@ -403,9 +406,7 @@
                                                 <input hidden="true" type="text" name="nombreProducto" value="<%=p.getNombre()%>">
                                             </div>
                                             <div class="add-to-cart">
-                                                <%String URL = request.getRequestURI();//lo metemos en una variable y lo hacemos atributo para mandarlo y asi saber de donde viene la peticion en el Servlet.
-                                                    contexto.setAttribute("URL", URL);
-                                                %>
+
                                                 <button type="submit" id="anadirCarrito" class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> Añadir al carrito</button>
                                             </div>
                                         </form>
@@ -414,6 +415,9 @@
                                 <!-- /product -->
 
                                 <%}%>
+                                <%String URL = request.getRequestURI();//lo metemos en una variable y lo hacemos atributo para mandarlo y asi saber de donde viene la peticion en el Servlet.
+                                    contexto.setAttribute("URL", URL);
+                                %>
                             </div>
                             <!-- /store products -->
 

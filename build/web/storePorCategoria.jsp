@@ -272,7 +272,8 @@
 
                         <!-- /aside Widget -->
 
-                        <!-- aside Widget -->
+                        <!-- aside Widget --><!--añadimos la lista como atributo para porder filtrarla por precio -->
+                        <%contexto.setAttribute("listaProductosStore", listaPorCategoria);%>
                         <div class="aside">
                             <h3 class="aside-title">Filtrar por precio</h3>
                             <div class="price-filter">

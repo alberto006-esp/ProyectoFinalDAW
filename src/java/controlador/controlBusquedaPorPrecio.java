@@ -7,6 +7,7 @@ package controlador;
 import Db.BDD;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.List;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletContext;
@@ -39,7 +40,7 @@ public class controlBusquedaPorPrecio extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet controlBusquedaPorPrecio</title>");            
+            out.println("<title>Servlet controlBusquedaPorPrecio</title>");
             out.println("</head>");
             out.println("<body>");
             out.println("<h1>Servlet controlBusquedaPorPrecio at " + request.getContextPath() + "</h1>");
@@ -75,16 +76,30 @@ public class controlBusquedaPorPrecio extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         RequestDispatcher rd;
-        double precioMinimo =0;
-        String cadenaPrecioMinimo=request.getParameter("precioMinimo");
-        precioMinimo=Double.parseDouble(cadenaPrecioMinimo);
-        double precioMaximo =0;
-        String cadenaPrecioMaximo=request.getParameter("precioMaximo");
-        precioMaximo=Double.parseDouble(cadenaPrecioMaximo);
-        List<Producto> listaBusqueda = BDD.buscarProductosPorPrecio(precioMinimo, precioMaximo);
-        ServletContext contexto= getServletContext();
-        contexto.setAttribute("listaBusqueda", listaBusqueda);
-        rd = request.getRequestDispatcher("/storeBusqueda.jsp");
+        ServletContext contexto = getServletContext();
+        double precioMinimo = 0;
+        String cadenaPrecioMinimo = request.getParameter("precioMinimo");
+        precioMinimo = Double.parseDouble(cadenaPrecioMinimo);
+        double precioMaximo = 0;
+        String cadenaPrecioMaximo = request.getParameter("precioMaximo");
+        precioMaximo = Double.parseDouble(cadenaPrecioMaximo);
+        //recogemos la lista de productos que nos aparece en la store para asi filtrar por la lista de productos.
+        List<Producto> lista = (List<Producto>) contexto.getAttribute("listaProductosStore");
+        List<Producto> listaFiltroPrecio = new ArrayList<>();
+        double descuento = 0;
+        double precio=0;
+        double precioFinal=0;
+        for (Producto producto : lista) {
+            descuento = producto.getDescuento() * producto.getPrecio();
+            precio=producto.getPrecio();
+            precioFinal=precio - descuento;
+            if (precioFinal >= precioMinimo && precioFinal <= precioMaximo) {
+                listaFiltroPrecio.add(producto);
+            }
+
+        }
+        contexto.setAttribute("listaFiltroPrecio", listaFiltroPrecio);
+        rd = request.getRequestDispatcher("/storeFiltroPrecio.jsp");
         rd.forward(request, response);
     }
 
