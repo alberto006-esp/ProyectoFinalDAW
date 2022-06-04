@@ -307,7 +307,7 @@
                                         String arrayNombres[] = new String[listaCarrito.size()];
                                         int cont = 0;
                                         for (Producto pro : listaCarrito) {
-                                            precioFinal = pro.getPrecio() - (pro.getPrecio() * pro.getDescuento());
+                                            precioFinal = (pro.getPrecio() - (pro.getPrecio() * pro.getDescuento())) * pro.getCantidad();
                                             precioTotal += precioFinal;
 
                                     %>

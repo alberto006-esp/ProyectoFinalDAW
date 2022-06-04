@@ -57,7 +57,7 @@ public class BDD {
             if (rs.next()) {
                 clave = rs.getString("usuario_password");
             }
-
+            cnn.close();
         } catch (SQLException ex) {
             Logger.getLogger(BDD.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -67,11 +67,10 @@ public class BDD {
     public static void AltaUsuario(Usuario user) {
         try {
             Connection cnn = crearConexion();
-
-            // int idDirector=getIdDirector(director);
             String sql = "INSERT INTO usuario (usuario_nombre,usuario_apellidos,usuario_tipo,usuario_email,usuario_user,usuario_password,usuario_direccion,usuario_telefono) VALUES('" + user.getNombre() + "','" + user.getApellidos() + "','" + user.getTipo() + "','" + user.getEmail() + "','" + user.getUsuario() + "','" + user.getPass() + "','" + user.getDireccion() + "','" + user.getTelefono() + "')";
             Statement stm = cnn.createStatement();
             stm.executeUpdate(sql);
+            cnn.close();
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
         }
@@ -90,7 +89,7 @@ public class BDD {
                 Producto p = new Producto(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getDouble(5), rs.getDouble(6), rs.getString(7));
                 listaProductos.add(p);
             }
-
+            cnn.close();
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
@@ -109,7 +108,7 @@ public class BDD {
             if (rs.next()) {
                 p = new Producto(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getDouble(5), rs.getDouble(6), rs.getString(7));
             }
-
+            cnn.close();
         } catch (SQLException e) {
 
         }
@@ -134,7 +133,7 @@ public class BDD {
                 Producto p = new Producto(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getDouble(5), rs.getDouble(6), rs.getString(7));
                 listaBusqueda.add(p);
             }
-
+            cnn.close();
         } catch (SQLException e) {
 
         }
@@ -152,7 +151,7 @@ public class BDD {
             if (rs.next()) {
                 id = rs.getInt("usuario_id");
             }
-
+            cnn.close();
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
         }
@@ -165,6 +164,7 @@ public class BDD {
             String sql = "INSERT INTO pedido (pedido_fecha,usuario_id,pedido_total) VALUES('" + fechaPedido + "','" + idUsuario + "','" + costeTotal + "')";
             Statement stm = cnn.createStatement();
             stm.executeUpdate(sql);
+            cnn.close();
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
         }
@@ -180,6 +180,7 @@ public class BDD {
             if (rs.last()) {
                 id = rs.getInt("pedido_id");
             }
+            cnn.close();
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
         }
@@ -195,7 +196,7 @@ public class BDD {
                 Statement stm = cnn.createStatement();
                 stm.executeUpdate(sql);
             }
-
+            cnn.close();
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
         }
@@ -214,9 +215,11 @@ public class BDD {
                 Pedido pedido = new Pedido(rs.getInt("pedido_id"), rs.getDate("pedido_fecha"), nombreUsuario, rs.getDouble("pedido_total"));
                 listaPedidosFecha.add(pedido);
             }
+            cnn.close();
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
         }
+
         return listaPedidosFecha;
     }
 
@@ -234,7 +237,7 @@ public class BDD {
                 listaClientes.add(usuario);
                 //usuario_nombre,usuario_apellidos,usuario_tipo,usuario_email,usuario_user,usuario_password,usuario_direccion,usuario_telefono
             }
-
+            cnn.close();
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
         }
@@ -255,6 +258,7 @@ public class BDD {
                 Pedido pedido = new Pedido(rs.getInt("pedido_id"), rs.getDate("pedido_fecha"), nombreUsuario, rs.getDouble("pedido_total"));
                 listaPedidosCliente.add(pedido);
             }
+            cnn.close();
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
         }
@@ -276,6 +280,7 @@ public class BDD {
                 Pedido pedido = new Pedido(rs.getInt("pedido_id"), rs.getDate("pedido_fecha"), cliente, producto, rs.getInt("detalle_cantidad"), precio);
                 listaPedidosUnProducto.add(pedido);
             }
+            cnn.close();
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
         }
@@ -294,7 +299,7 @@ public class BDD {
             if (rs.next()) {
                 nombreUsuario = rs.getString("usuario_user");
             }
-
+            cnn.close();
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
         }
@@ -314,7 +319,7 @@ public class BDD {
             if (rs.next()) {
                 nombreProducto = rs.getString("producto_nombre");
             }
-
+            cnn.close();
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
@@ -334,7 +339,7 @@ public class BDD {
             if (rs.next()) {
                 precio = rs.getDouble("producto_precio");
             }
-
+            cnn.close();
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
@@ -356,6 +361,7 @@ public class BDD {
                 Producto pro = new Producto(rs.getInt("pedido_id"), rs.getString("producto_nombre"), categoria, rs.getString("producto_detalle"), rs.getDouble("producto_precio"), rs.getDouble("producto_descuento"), rs.getString("producto_foto"), rs.getInt("detalle_cantidad"));
                 listaProductos.add(pro);
             }
+            cnn.close();
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
         }
@@ -375,6 +381,7 @@ public class BDD {
             if (rs.next()) {
                 categoria = rs.getString("categoria_nombre");
             }
+            cnn.close();
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
@@ -400,7 +407,7 @@ public class BDD {
                     listaProductos.add(p);
                 }
             }
-
+            cnn.close();
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
@@ -443,7 +450,7 @@ public class BDD {
                 Producto p = new Producto(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getDouble(5), rs.getDouble(6), rs.getString(7));
                 listaProductosPorCategoria.add(p);
             }
-
+            cnn.close();
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
@@ -464,7 +471,7 @@ public class BDD {
                 idProductosMasVendidos[cont] = rs.getInt("producto_id");
                 cont++;
             }
-
+            cnn.close();
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
@@ -485,6 +492,7 @@ public class BDD {
                     listaProductosMasVendidos.add(p);
                 }
             }
+            cnn.close();
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
@@ -504,7 +512,7 @@ public class BDD {
                 Producto p = new Producto(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getDouble(5), rs.getDouble(6), rs.getString(7));
                 listaBusqueda.add(p);
             }
-
+            cnn.close();
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
@@ -523,7 +531,7 @@ public class BDD {
             if (rs.next()) {
                 usu = new Usuario(rs.getString("usuario_nombre"), rs.getString("usuario_apellidos"), rs.getString("usuario_tipo"), rs.getString("usuario_email"), rs.getString("usuario_user"), rs.getString("usuario_password"), rs.getString("usuario_direccion"), rs.getInt("usuario_telefono"));
             }
-
+            cnn.close();
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
         }
@@ -543,7 +551,7 @@ public class BDD {
                 Producto p = new Producto(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getDouble(5), rs.getDouble(6), rs.getString(7));
                 listaProductosEnOferta.add(p);
             }
-
+            cnn.close();
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
@@ -561,7 +569,7 @@ public class BDD {
             if (rs.next()) {
                 tipoUsuario = rs.getString("usuario_tipo");
             }
-
+            cnn.close();
         } catch (SQLException ex) {
             Logger.getLogger(BDD.class.getName()).log(Level.SEVERE, null, ex);
         }
