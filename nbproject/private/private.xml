@@ -3,15 +3,12 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/alber/OneDrive/Documentos/NetBeansProjects/ProyectoProductosTecnologicos/web/store.jsp</file>
+            <file>file:/C:/Users/alber/OneDrive/Documentos/NetBeansProjects/ProyectoProductosTecnologicos/src/java/modelo/Producto.java</file>
+            <file>file:/C:/Users/alber/OneDrive/Documentos/NetBeansProjects/ProyectoProductosTecnologicos/web/css/style.css</file>
             <file>file:/C:/Users/alber/OneDrive/Documentos/NetBeansProjects/ProyectoProductosTecnologicos/web/vistaProducto.jsp</file>
-            <file>file:/C:/Users/alber/OneDrive/Documentos/NetBeansProjects/ProyectoProductosTecnologicos/src/java/controlador/controlBusqueda.java</file>
+            <file>file:/C:/Users/alber/OneDrive/Documentos/NetBeansProjects/ProyectoProductosTecnologicos/web/css/style2.css</file>
             <file>file:/C:/Users/alber/OneDrive/Documentos/NetBeansProjects/ProyectoProductosTecnologicos/src/java/Db/BDD.java</file>
-            <file>file:/C:/Users/alber/OneDrive/Documentos/NetBeansProjects/ProyectoProductosTecnologicos/src/java/controlador/controlBusquedaPorPrecio.java</file>
-            <file>file:/C:/Users/alber/OneDrive/Documentos/NetBeansProjects/ProyectoProductosTecnologicos/web/storePorCategoria.jsp</file>
-            <file>file:/C:/Users/alber/OneDrive/Documentos/NetBeansProjects/ProyectoProductosTecnologicos/web/storeFiltroPrecio.jsp</file>
-            <file>file:/C:/Users/alber/OneDrive/Documentos/NetBeansProjects/ProyectoProductosTecnologicos/web/carrito.jsp</file>
-            <file>file:/C:/Users/alber/OneDrive/Documentos/NetBeansProjects/ProyectoProductosTecnologicos/web/storeBusqueda.jsp</file>
+            <file>file:/C:/Users/alber/OneDrive/Documentos/NetBeansProjects/ProyectoProductosTecnologicos/src/java/controlador/controlVistaProducto.java</file>
         </group>
     </open-files>
 </project-private>
