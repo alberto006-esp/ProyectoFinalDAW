@@ -315,7 +315,7 @@
                                     <div class="order-col">
                                         <!--<button type="submit" class="delete"><i class="fa fa-close"></i></button>-->
                                         <div><a href="borrarArtCarritoFinal?nombreProductoBorrar=<%=pro.getNombre()%>" class="delete" style="margin-right: 2%"><i class="fa fa-close"></i></a><input type="number" class="cantidadArticulo" name="<%=pro.getNombre()%>" value="<%=pro.getCantidad()%>" size="3" min="1"> <%=pro.getNombre()%></div>
-                                        <div><h5 style="margin-left: 40%"><%=precioFinal%>€</h5></div>
+                                        <div><h5 id="precioFinalProducto<%=cont%>" style="margin-left: 40%"><%=precioFinal%>€</h5></div>
                                         <input type="number" hidden="true" name="name" class="precioFinal" value="<%=precioFinal%>">
                                     </div>
                                     <%
