@@ -248,7 +248,7 @@
                                     <input class="input" name="email" type="email" pattern="[a-zA-Z0-9!#$%&'*_+-]([\.]?[a-zA-Z0-9!#$%&'*_+-])+@[a-zA-Z0-9]([^@&%$\/()=?¿!.,:;]|\d)+[a-zA-Z0-9][\.][a-zA-Z]{2,4}([\.][a-zA-Z]{2})?"  required>
                                 </div>
                                 <div class="form-group">
-                                    <label for="pass">Contraseña:</label>
+                                    <label for="pass">Contraseña: <strong style="font-style: italic;font-size: x-small">(la contraseña debe tener al menos 8 caracteres, un número, una mayúscula y un carácter especial)</strong></label>
                                     <input class="input" name="pass" type="password" pattern="(?=.*\d)(?=.*[!#$%&'()*+,-./:;<=>?@[\]^_`{|}~¡!¿])(?=.*[A-Z])(?=.*[a-z])\S{8,16}" required>
                                 </div>
                                 <div class="form-group">
