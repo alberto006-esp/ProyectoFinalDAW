@@ -308,6 +308,7 @@
                                         int cont = 0;
                                         for (Producto pro : listaCarrito) {
                                             precioFinal = (pro.getPrecio() - (pro.getPrecio() * pro.getDescuento())) * pro.getCantidad();
+                                            precioFinal=Math.round(precioFinal*100.0)/100.0;
                                             precioTotal += precioFinal;
 
                                     %>

@@ -92,7 +92,7 @@ public class AddCarrito extends HttpServlet {
             for (int x = 0; x < listaCarrito.size(); x++) {
                 if (listaCarrito.get(x).getNombre().equals(pro.getNombre())) {
                     cantidadAntigua=listaCarrito.get(x).getCantidad();
-                    cantidadAntigua++;
+                    cantidadAntigua+=cantidad;
                     pro= new Producto(p.getId(), p.getNombre(), p.getCategoria(), p.getDetalle(), p.getPrecio(), p.getDescuento(), p.getFoto(), cantidadAntigua);
                     listaCarrito.set(x, pro);
                     contiene=true;

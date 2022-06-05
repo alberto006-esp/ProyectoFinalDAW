@@ -5,8 +5,9 @@ function iniciar() {
      inputs.addEventListener('change',calcularTotal,true);
      });*/
     for (let x = 0; x < inputs.length; x++) {
+        inputs[x].addEventListener('load', calcularTotal, true);
         inputs[x].addEventListener('change', calcularTotal, true);
-        //inputs[x].addEventListener('load', calcularTotal, true);
+        
     }
     function calcularTotal() {
         let cantidades = document.querySelectorAll('input.cantidadArticulo');
@@ -19,6 +20,7 @@ function iniciar() {
             precio = Number(precios[x].value);
             cantidad = Number(cantidades[x].value);
             precioFinalPorProducto = precio * cantidad;
+            precioFinalPorProducto = Math.round(precioFinalPorProducto * 100.0) / 100.0;
             document.getElementById("precioFinalProducto" + x).innerHTML = precioFinalPorProducto + "€";
             precioTotal += precio * cantidad;
         }
