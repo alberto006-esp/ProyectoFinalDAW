@@ -91,10 +91,10 @@ public class controlModificarDatosPersonales extends HttpServlet {
             String generatedSecuredPasswordHash = BCrypt.hashpw(pass, BCrypt.gensalt(12));
             Usuario usu = new Usuario(nombre, apellidos, tipo, email, usuario, generatedSecuredPasswordHash, direccion, telefono);
             BDD.Modificar(usu, nombreUsuario);
-            String mensajeModificar="Datos modificados con éxito.";
+            String mensajeModificar="¡DATOS MODIFICADOS CON ÉXITO!";
             contexto.setAttribute("mensajeModificar", mensajeModificar);
         } else {
-            String mensajeModificar="Las contraseñas no coinciden.";
+            String mensajeModificar="¡LAS CONTRASEÑAS NO COINCIDEN!";
             contexto.setAttribute("mensajeModificar", mensajeModificar);
         }
         rd = request.getRequestDispatcher("/miCuenta.jsp");

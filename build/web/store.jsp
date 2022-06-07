@@ -141,7 +141,7 @@
                                     for (int x = 0; x < listaCarrito.size(); x++) {
                                         cantidadCarrito += listaCarrito.get(x).getCantidad();
                                     }
-                                if (!usuario.equals("invitado")) {%>
+                                    if (!usuario.equals("invitado")) {%>
                                 <div class="dropdown">
                                     <a href="miCuenta.jsp">
                                         <!--<i class="bi bi-person"></i>-->
@@ -198,7 +198,7 @@
                                             <%
                                                 costeTotal = Math.round(costeTotal * 100.0) / 100.0;
                                                 // String result = String .format("%.2f");
-%>
+                                            %>
                                             <h5>TOTAL: <%=costeTotal%>€</h5>
                                         </div>
                                         <div class="cart-btns">
@@ -278,8 +278,10 @@
             if (mensajePedido != null) {%>
         <div class="container">
             <div class="section">
-                <div style="background-color: #D10024; text-align: center">
-                    <h3 style="color: white"><%=mensajePedido%></h3>
+                <div class="form-group">
+                    <div class="alert alert-danger" role="alert">
+                        <%= mensajePedido %>
+                    </div>
                 </div> 
             </div>  
         </div>

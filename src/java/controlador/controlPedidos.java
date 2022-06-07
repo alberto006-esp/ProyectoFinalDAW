@@ -114,7 +114,7 @@ public class controlPedidos extends HttpServlet {
         
         BDD.TramitarDetallePedido(idPedido, listaCarrito);
         contexto.removeAttribute("listaCarrito");
-        String mensajePedido="PEDIDO REALIZADO CON EXITO";
+        String mensajePedido="¡PEDIDO REALIZADO CON ÉXITO!";
         contexto.setAttribute("mensajePedido", mensajePedido);
         rd = request.getRequestDispatcher("/store.jsp");
         rd.forward(request, response);

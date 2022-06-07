@@ -139,7 +139,7 @@
                                     for (int x = 0; x < listaCarrito.size(); x++) {
                                         cantidadCarrito += listaCarrito.get(x).getCantidad();
                                     }
-                                 %>   
+                                %>   
                                 <div class="dropdown">
                                     <a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
                                         <i class="bi bi-cart3"></i>
@@ -265,115 +265,101 @@
         <div class="section">
             <!-- container -->
             <div class="container">
-                <!-- row -->
-                <div class="row">
+                <!-- Billing Details -->
+                <div class="billing-details">
+                    <div class="container">
+                        <% String nombreUsuario = (String) sesion.getAttribute("usuario");
 
-                    <div class="col-md-7">
-                        <!-- Billing Details -->
-                        <div class="billing-details">
+                            Usuario usu = BDD.buscarDatosUsuario(nombreUsuario);
+                            String mensajeModificar = (String) contexto.getAttribute("mensajeModificar");%>
+                        <div class="section-title">
+                            <h3 class="title">Modificar datos personales</h3>
+                        </div>
+                        <%if (mensajeModificar != null) {%>
 
-                            <% String nombreUsuario = (String) sesion.getAttribute("usuario");
-
-                                Usuario usu = BDD.buscarDatosUsuario(nombreUsuario);
-                                String mensajeModificar = (String) contexto.getAttribute("mensajeModificar");%>
-                            <div class="section-title">
-                                <h3 class="title">Modificar datos personales</h3>
+                        <div class="form-group">
+                            <div class="alert alert-danger" role="alert">
+                                <%= mensajeModificar %>
                             </div>
-                            <%if (mensajeModificar != null) {%>
-                            <div class="container">
-                                <div class="section">
-                                    <div style="background-color: #D10024; text-align: center">
-                                        <h3 style="color: white"><%=mensajeModificar%></h3>
-                                    </div> 
-                                </div>  
-                            </div>
-                            <%contexto.removeAttribute("mensajeModificar");
+                        </div>  
+
+                        <%contexto.removeAttribute("mensajeModificar");
                                 }%>
-                            <form action="controlModificarDatosPersonales" method="post">
-                                <div class="container">
-                                    <div class="row">
-                                        <div class="col">
-                                            <div class="form-group">
-                                                <label for="nombre">Nombre:</label>
-                                                <input class="input" name="nombre" type="text" value="<%=usu.getNombre()%>" pattern="[A-ZÑña-záéíóúÁÉÍÓÚ\s]{1,15}" required >
-                                            </div>
-                                        </div>
-                                        <div class="col">
-                                            <div class="form-group">
-                                                <label for="apellidos">Apellidos:</label>
-                                                <input class="input" name="apellidos" type="text" value="<%= usu.getApellidos()%>" pattern="[A-ZÑña-záéíóúÁÉÍÓÚ\s]{1,15}" required>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col">
-                                            <div class="form-group">
-                                                <label for="usuario">Usuario: <strong style="font-style: italic;font-size: x-small">(El nombre del usuario debe tener al menos 8 caracteres y un máximo de 16)</strong></label>
-                                                <input class="input" name="usuario" type="text" value="<%= usu.getUsuario()%>" pattern="\S{8,16}" required>
-                                            </div>
-                                        </div>
-                                        <div class="col">
-                                            <div class="form-group">
-                                                <label for="email">Email:</label>
-                                                <input class="input" name="email" type="email" value="<%= usu.getEmail()%>" pattern="[a-zA-Z0-9!#$%&'*_+-]([\.]?[a-zA-Z0-9!#$%&'*_+-])+@[a-zA-Z0-9]([^@&%$\/()=?¿!.,:;]|\d)+[a-zA-Z0-9][\.][a-zA-Z]{2,4}([\.][a-zA-Z]{2})?"  required>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col">
-                                            <div class="form-group">
-                                                <label for="pass">Contraseña: <strong style="font-style: italic;font-size: x-small">(la contraseña debe tener al menos 8 caracteres, un número, una mayúscula y un carácter especial)</strong></label>
-                                                <input class="input" name="pass" type="password" pattern="(?=.*\d)(?=.*[!#$%&'()*+,-./:;<=>?@[\]^_`{|}~¡!¿])(?=.*[A-Z])(?=.*[a-z])\S{8,16}" required>
-                                            </div>
-                                        </div>
-                                        <div class="col">
-                                            <div class="form-group">
-                                                <label for="RePass">Repetir contraseña:</label>
-                                                <input class="input" name="RePass" type="password" pattern="(?=.*\d)(?=.*[!#$%&'()*+,-./:;<=>?@[\]^_`{|}~¡!¿])(?=.*[A-Z])(?=.*[a-z])\S{8,16}" required>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col">
-                                            <div class="form-group">
-                                                <label for="direccion">Dirección:</label>
-                                                <input class="input" name="direccion" value="<%= usu.getDireccion()%>" type="text" required>
-                                            </div>
-                                        </div>
-                                        <div class="col">
-                                            <div class="form-group">
-                                                <label for="telefono">Teléfono:</label>
-                                                <input class="input" name="telefono" type="text" value="<%= usu.getTelefono()%>" pattern="[\d]{9}" required>
-                                            </div>
-                                        </div>
-                                    </div>
+                        <form action="controlModificarDatosPersonales" method="post">
+
+                            <div class="row">
+                                <div class="col">
                                     <div class="form-group">
-                                        <input class="primary-btn order-submit" style="width: 50%" name="modificar" value="Modificar" type="submit">
-                                        <% String URL = (String) contexto.getAttribute("URL");
-                                            if (URL.equals("/ProyectoProductosTecnologicos/storeBusqueda.jsp")) {%>
-                                        <a href="storeBusqueda.jsp" class="primary-btn order-submit" style="width: 49%">Volver</a>
-                                        <%}
-                                            if (URL.equals("/ProyectoProductosTecnologicos/store.jsp")) { %>
-                                        <a href="store.jsp" class="primary-btn order-submit" style="width: 49%">Volver</a>
-                                        <% }
-                                            if (URL.equals("/ProyectoProductosTecnologicos/storePorCategoria.jsp")) { %>
-                                        <a href="storePorCategoria.jsp" class="primary-btn order-submit" style="width: 49%">Volver</a>
-                                        <% }%>
+                                        <label for="nombre">Nombre:</label>
+                                        <input class="input" name="nombre" type="text" value="<%=usu.getNombre()%>" pattern="[A-ZÑña-záéíóúÁÉÍÓÚ\s]{1,15}" required >
                                     </div>
                                 </div>
-                            </form>
-                        </div>
-                        <!-- /Billing Details -->
+                                <div class="col">
+                                    <div class="form-group">
+                                        <label for="apellidos">Apellidos:</label>
+                                        <input class="input" name="apellidos" type="text" value="<%= usu.getApellidos()%>" pattern="[A-ZÑña-záéíóúÁÉÍÓÚ\s]{1,15}" required>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col">
+                                    <div class="form-group">
+                                        <label for="usuario">Usuario: <strong style="font-style: italic;font-size: x-small">(El nombre del usuario debe tener al menos 8 caracteres y un máximo de 16)</strong></label>
+                                        <input class="input" name="usuario" type="text" value="<%= usu.getUsuario()%>" pattern="\S{8,16}" required>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="form-group">
+                                        <label for="email">Email:</label>
+                                        <input class="input" name="email" type="email" value="<%= usu.getEmail()%>" pattern="[a-zA-Z0-9!#$%&'*_+-]([\.]?[a-zA-Z0-9!#$%&'*_+-])+@[a-zA-Z0-9]([^@&%$\/()=?¿!.,:;]|\d)+[a-zA-Z0-9][\.][a-zA-Z]{2,4}([\.][a-zA-Z]{2})?"  required>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col">
+                                    <div class="form-group">
+                                        <label for="pass">Contraseña: <strong style="font-style: italic;font-size: x-small">(la contraseña debe tener al menos 8 caracteres, un número, una mayúscula y un carácter especial)</strong></label>
+                                        <input class="input" name="pass" type="password" pattern="(?=.*\d)(?=.*[!#$%&'()*+,-./:;<=>?@[\]^_`{|}~¡!¿])(?=.*[A-Z])(?=.*[a-z])\S{8,16}" required>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="form-group">
+                                        <label for="RePass">Repetir contraseña:</label>
+                                        <input class="input" name="RePass" type="password" pattern="(?=.*\d)(?=.*[!#$%&'()*+,-./:;<=>?@[\]^_`{|}~¡!¿])(?=.*[A-Z])(?=.*[a-z])\S{8,16}" required>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col">
+                                    <div class="form-group">
+                                        <label for="direccion">Dirección:</label>
+                                        <input class="input" name="direccion" value="<%= usu.getDireccion()%>" type="text" required>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="form-group">
+                                        <label for="telefono">Teléfono:</label>
+                                        <input class="input" name="telefono" type="text" value="<%= usu.getTelefono()%>" pattern="[\d]{9}" required>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <input class="primary-btn order-submit" style="width: 50%" name="modificar" value="Modificar" type="submit">
+                                <% String URL = (String) contexto.getAttribute("URL");
+                                            if (URL.equals("/ProyectoProductosTecnologicos/storeBusqueda.jsp")) {%>
+                                <a href="storeBusqueda.jsp" class="primary-btn order-submit" style="width: 49%">Volver</a>
+                                <%}
+                                            if (URL.equals("/ProyectoProductosTecnologicos/store.jsp")) { %>
+                                <a href="store.jsp" class="primary-btn order-submit" style="width: 49%">Volver</a>
+                                <% }
+                                            if (URL.equals("/ProyectoProductosTecnologicos/storePorCategoria.jsp")) { %>
+                                <a href="storePorCategoria.jsp" class="primary-btn order-submit" style="width: 49%">Volver</a>
+                                <% }%>
+                            </div>
 
-                        <!-- Shiping Details -->
-
-                        <!-- /Shiping Details -->
-
-                        <!-- Order notes -->
-                        <!-- /Order notes -->
-                    </div>
+                        </form>
+                    </div>        
                 </div>
-                <!-- /row -->
             </div>
             <!-- /container -->
         </div>
