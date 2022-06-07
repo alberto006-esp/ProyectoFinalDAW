@@ -303,7 +303,8 @@
                             </div>
                             <div class="order-summary">
 
-                                <%  double precioFinal = 0;
+                                <%  double precioUnitario = 0;
+                                    double precioFinal = 0;
                                     double precioTotal = 0;
                                     if (listaCarrito.isEmpty()) {%>
                                 <p class="product-name"><strong>CARRITO VACIO</strong></p> 
@@ -317,6 +318,7 @@
                                         String arrayNombres[] = new String[listaCarrito.size()];
                                         int cont = 0;
                                         for (Producto pro : listaCarrito) {
+                                            precioUnitario = pro.getPrecio() - (pro.getPrecio() * pro.getDescuento());
                                             precioFinal = (pro.getPrecio() - (pro.getPrecio() * pro.getDescuento())) * pro.getCantidad();
                                             precioFinal=Math.round(precioFinal*100.0)/100.0;
                                             precioTotal += precioFinal;
@@ -328,6 +330,7 @@
                                         <div><a href="borrarArtCarritoFinal?nombreProductoBorrar=<%=pro.getNombre()%>" class="delete" style="margin-right: 2%"><i class="fa fa-close"></i></a><input type="number" class="cantidadArticulo" name="<%=pro.getNombre()%>" value="<%=pro.getCantidad()%>" size="3" min="1"> <%=pro.getNombre()%></div>
                                         <div><h5 id="precioFinalProducto<%=cont%>" style="margin-left: 40%"><%=precioFinal%>€</h5></div>
                                         <input type="number" hidden="true" name="name" class="precioFinal" value="<%=precioFinal%>">
+                                        <input type="number" hidden="true" name="precioUnitario" class="precioUnitario" value="<%=precioUnitario%>">
                                     </div>
                                     <%
                                             arrayCantidades[cont] = pro.getCantidad();//hay que arreglar el envio del parametro de arrayCantidades.
