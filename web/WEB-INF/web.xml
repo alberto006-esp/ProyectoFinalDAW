@@ -68,6 +68,10 @@
         <servlet-name>borrarArtCarritoFinal</servlet-name>
         <servlet-class>controlador.borrarArtCarritoFinal</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>controlModificarDatosPersonales</servlet-name>
+        <servlet-class>controlador.controlModificarDatosPersonales</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>controlLogin</servlet-name>
         <url-pattern>/controlLogin</url-pattern>
@@ -135,6 +139,10 @@
     <servlet-mapping>
         <servlet-name>borrarArtCarritoFinal</servlet-name>
         <url-pattern>/borrarArtCarritoFinal</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>controlModificarDatosPersonales</servlet-name>
+        <url-pattern>/controlModificarDatosPersonales</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

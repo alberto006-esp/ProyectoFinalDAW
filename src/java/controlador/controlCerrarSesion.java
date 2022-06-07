@@ -63,7 +63,7 @@ public class controlCerrarSesion extends HttpServlet {
         HttpSession sesion = request.getSession();
         contexto.removeAttribute("listaCarrito");
         sesion.invalidate();
-        rd = request.getRequestDispatcher("/index.html");
+        rd = request.getRequestDispatcher("/store.jsp");
         rd.forward(request, response);
     }
 

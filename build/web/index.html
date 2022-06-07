@@ -72,7 +72,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Html.html to edit thi
                     </div>
                     <div class="contenedor-input">
                         <label>
-                            Usuario <span class="req">*</span>
+                            Usuario <strong style="font-style: italic;font-size: x-small">(El nombre del usuario debe tener al menos 8 caracteres y un máximo de 16)</strong><span class="req">*</span>
                         </label>
                         <input name="usuario" type="text" pattern="\S{8,16}" required>
                     </div>
@@ -85,7 +85,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Html.html to edit thi
                     </div>
                     <div class="contenedor-input">
                         <label>
-                            Contraseña <strong style="font-style: italic;font-size: x-small">(al menos 8 caracteres, un número, una mayúscula y un carácter especial) </strong><span class="req">*</span>
+                            Contraseña <strong style="font-style: italic;font-size: x-small">(al menos 8 caracteres, un número, una mayúscula y un carácter especial)</strong><span class="req">*</span>
                         </label>
                         <input name="pass" type="password" pattern="(?=.*\d)(?=.*[!#$%&'()*+,-./:;<=>?@[\]^_`{|}~¡!¿])(?=.*[A-Z])(?=.*[a-z])\S{8,16}" required>
                     </div>

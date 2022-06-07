@@ -571,9 +571,22 @@ public class BDD {
             }
             cnn.close();
         } catch (SQLException ex) {
-            Logger.getLogger(BDD.class.getName()).log(Level.SEVERE, null, ex);
+             System.out.println(ex.getMessage());
         }
         return tipoUsuario;
+    }
+
+    public static void Modificar(Usuario usu, String nombreUsuario) {
+        Connection cnn = crearConexion();
+        String sql = "UPDATE usuario SET usuario_nombre='" + usu.getNombre() + "', usuario_apellidos='" + usu.getApellidos() + "', usuario_email='" + usu.getEmail() + "', usuario_user='" + usu.getUsuario() + "', usuario_password='" + usu.getPass() + "', usuario_direccion='" + usu.getDireccion() + "', usuario_telefono='" + usu.getTelefono() + "' WHERE usuario_user='" + nombreUsuario + "'";
+        Statement stm;
+        try {
+            stm = cnn.createStatement();
+            stm.executeUpdate(sql);
+            cnn.close();
+        } catch (SQLException ex) {
+             System.out.println(ex.getMessage());
+        }
     }
 
 }
