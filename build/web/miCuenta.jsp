@@ -127,7 +127,76 @@
                         <!-- ACCOUNT -->
                         <div class="col-md-3 clearfix">
                             <div class="header-ctn">
+                                <!-- Cart -->
+                                <%  ServletContext contexto = getServletContext();
+                                    List<Producto> listaCarrito = (List) contexto.getAttribute("listaCarrito");
+                                    double costeTotal = 0;
+                                    int cantidadTotal = 0;
+                                    if (listaCarrito == null) {
+                                        listaCarrito = new ArrayList<Producto>();
+                                    }
+                                    int cantidadCarrito = 0;
+                                    for (int x = 0; x < listaCarrito.size(); x++) {
+                                        cantidadCarrito += listaCarrito.get(x).getCantidad();
+                                    }
+                                 %>   
+                                <div class="dropdown">
+                                    <a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
+                                        <i class="bi bi-cart3"></i>
+                                        <span>Carrito</span>
+                                        <div class="qty"><%=cantidadCarrito%></div>
+                                    </a>
+                                    <div class="cart-dropdown">
+                                        <%if (listaCarrito.isEmpty()) {%>
+                                        <div class="cart-list">
+                                            <h3 class="product-name">CARRITO VACIO</h3>
+                                        </div>
+                                        <%} else {%>
+                                        <div class="cart-list">
 
+                                            <%  double precioFinal = 0;
+                                                double precioTotal = 0;
+                                                for (Producto pro : listaCarrito) {
+                                                    precioFinal = pro.getPrecio() - (pro.getDescuento() * pro.getPrecio());
+                                            %>
+                                            <form action="BorrarArtCarrito" method="post">
+                                                <div class="product-widget">
+                                                    <div class="product-img">
+                                                        <img src="img/<%=pro.getFoto()%>" alt="">
+                                                    </div>
+                                                    <div class="product-body">
+                                                        <h3 class="product-name"><a href="controlVistaProducto?nombreProducto=<%=pro.getNombre()%>"><%=pro.getNombre()%></a></h3>
+                                                        <h4 class="product-price"><span class="qty"><%=pro.getCantidad()%> X</span><%=precioFinal%>€</h4>
+                                                    </div>
+
+                                                    <input hidden="true" type="text" name="borrarArtCarrito" value="<%=pro.getNombre()%>">
+                                                    <button type="submit" class="delete"><i class="fa fa-close"></i></button>
+                                                </div>
+                                            </form>
+                                            <%      cantidadTotal += pro.getCantidad();
+                                                    precioTotal = precioFinal * pro.getCantidad();
+                                                    costeTotal += precioTotal;
+
+                                                }
+                                            %>
+                                        </div>
+                                        <%}%>
+                                        <div class="cart-summary">
+                                            <small><%=cantidadTotal%> Articulos seleccionados</small>
+                                            <%
+                                                costeTotal = Math.round(costeTotal * 100.0) / 100.0;
+                                                // String result = String .format("%.2f");
+                                            %>
+                                            <h5>TOTAL: <%=costeTotal%>€</h5>
+                                        </div>
+                                        <div class="cart-btns">
+
+                                            <a href="carrito.jsp">Ver Carrito</a>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- /Cart -->
                                 <!-- Menu Toogle -->
                                 <div class="menu-toggle">
                                     <a href="#">
@@ -206,7 +275,6 @@
                             <% String nombreUsuario = (String) sesion.getAttribute("usuario");
 
                                 Usuario usu = BDD.buscarDatosUsuario(nombreUsuario);
-                                ServletContext contexto = getServletContext();
                                 String mensajeModificar = (String) contexto.getAttribute("mensajeModificar");%>
                             <div class="section-title">
                                 <h3 class="title">Modificar datos personales</h3>
@@ -282,13 +350,13 @@
                                     <div class="form-group">
                                         <input class="primary-btn order-submit" style="width: 50%" name="modificar" value="Modificar" type="submit">
                                         <% String URL = (String) contexto.getAttribute("URL");
-                                        if (URL.equals("/ProyectoProductosTecnologicos/storeBusqueda.jsp")) {%>
+                                            if (URL.equals("/ProyectoProductosTecnologicos/storeBusqueda.jsp")) {%>
                                         <a href="storeBusqueda.jsp" class="primary-btn order-submit" style="width: 49%">Volver</a>
                                         <%}
-                                        if (URL.equals("/ProyectoProductosTecnologicos/store.jsp")) { %>
+                                            if (URL.equals("/ProyectoProductosTecnologicos/store.jsp")) { %>
                                         <a href="store.jsp" class="primary-btn order-submit" style="width: 49%">Volver</a>
                                         <% }
-                                        if (URL.equals("/ProyectoProductosTecnologicos/storePorCategoria.jsp")) { %>
+                                            if (URL.equals("/ProyectoProductosTecnologicos/storePorCategoria.jsp")) { %>
                                         <a href="storePorCategoria.jsp" class="primary-btn order-submit" style="width: 49%">Volver</a>
                                         <% }%>
                                     </div>
