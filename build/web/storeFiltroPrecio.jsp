@@ -98,7 +98,7 @@
                         <div class="col-md-3">
                             <div class="header-logo">
                                 <a href="store.jsp" class="logo">
-                                    <img src="img/logo11.png" width="220px" height="60px" alt="">
+                                    <img src="img/logo11.png" width="220px" height="60px" alt="Imagen no disponible">
                                 </a>
                             </div>
                         </div>
@@ -173,7 +173,7 @@
                                             <form action="BorrarArtCarrito" method="post">
                                                 <div class="product-widget">
                                                     <div class="product-img">
-                                                        <img src="img/<%=pro.getFoto()%>" alt="">
+                                                        <img src="img/<%=pro.getFoto()%>" alt="Imagen no disponible">
                                                     </div>
                                                     <div class="product-body">
                                                         <h3 class="product-name"><a href="controlVistaProducto?nombreProducto=<%=pro.getNombre()%>"><%=pro.getNombre()%></a></h3>
@@ -317,7 +317,7 @@
                             %>
                             <div class="product-widget">
                                 <div class="product-img">
-                                    <img src="img/<%=p.getFoto()%>" alt="">
+                                    <img src="img/<%=p.getFoto()%>" alt="Imagen no disponible">
                                 </div>
                                 <div class="product-body">
                                     <p class="product-category"><%=p.getCategoria()%></p>
@@ -367,7 +367,7 @@
                                     <div class="product">
                                         <form action="AddCarrito" method="post">
                                             <div class="product-img">
-                                                <img src="img/<%=p.getFoto()%>" width="100px" height="225px" alt="">
+                                                <img src="img/<%=p.getFoto()%>" width="100px" height="225px" alt="Imagen no disponible">
                                                 <div class="product-label">
                                                     <% if (p.getDescuento() > 0) {
                                                             double doublePorcentaje = p.getDescuento() * 100;

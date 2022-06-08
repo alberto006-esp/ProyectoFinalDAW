@@ -99,7 +99,7 @@
                         <div class="col-md-3">
                             <div class="header-logo">
                                 <a href="store.jsp" class="logo">
-                                    <img src="img/logo11.png" width="220px" height="60px" alt="">
+                                    <img src="img/logo11.png" width="220px" height="60px" alt="Imagen no disponible">
                                 </a>
                             </div>
                         </div>
@@ -162,7 +162,7 @@
                                             <form action="BorrarArtCarrito" method="post">
                                                 <div class="product-widget">
                                                     <div class="product-img">
-                                                        <img src="img/<%=pro.getFoto()%>" alt="">
+                                                        <img src="img/<%=pro.getFoto()%>" alt="Imagen no disponible">
                                                     </div>
                                                     <div class="product-body">
                                                         <h3 class="product-name"><a href="controlVistaProducto?nombreProducto=<%=pro.getNombre()%>"><%=pro.getNombre()%></a></h3>

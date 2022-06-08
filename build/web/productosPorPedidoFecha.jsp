@@ -93,7 +93,7 @@
                         <div class="col-md-3">
                             <div class="header-logo">
                                 <a href="storeAdmin.jsp" class="logo">
-                                    <img src="img/logo11.png" width="220px" height="60px" alt="">
+                                    <img src="img/logo11.png" width="220px" height="60px" alt="Imagen no disponible">
                                 </a>
                             </div>
                         </div>
@@ -195,7 +195,7 @@
 
                         <tr>
 
-                            <td><img src="img/<%=pro.getFoto()%>" alt="" style="width: 100px;height: 80px"></td>
+                            <td><img src="img/<%=pro.getFoto()%>" alt="Imagen no disponible" style="width: 100px;height: 80px"></td>
                             <td><%=pro.getNombre()%></td>
                             <td><%=pro.getCategoria()%></td>
                             <td><%=pro.getDetalle()%></td>

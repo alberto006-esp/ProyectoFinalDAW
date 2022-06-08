@@ -87,7 +87,7 @@
                         <div class="col-md-3">
                             <div class="header-logo">
                                 <a href="storeAdmin.jsp" class="logo">
-                                    <img src="img/logo11.png" width="220px" height="60px" alt="">
+                                    <img src="img/logo11.png" width="220px" height="60px" alt="Imagen no disponible">
                                 </a>
                             </div>
                         </div>
