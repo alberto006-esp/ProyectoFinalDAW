@@ -272,19 +272,21 @@
 
                             Usuario usu = BDD.buscarDatosUsuario(nombreUsuario);
                             String mensajeModificar = (String) contexto.getAttribute("mensajeModificar");%>
-                        <div class="section-title">
-                            <h3 class="title">Modificar datos personales</h3>
+                        <div class="row">
+                            <div class="section-title">
+                                <h3 class="title">Modificar datos personales</h3>
+                            </div>
                         </div>
                         <%if (mensajeModificar != null) {%>
-
-                        <div class="form-group">
-                            <div class="alert alert-danger text-center" role="alert">
-                                <%= mensajeModificar %>
-                            </div>
-                        </div>  
-
+                        <div class="row">
+                            <div class="form-group">
+                                <div class="alert alert-danger text-center" role="alert">
+                                    <%= mensajeModificar%>
+                                </div>
+                            </div>  
+                        </div>
                         <%contexto.removeAttribute("mensajeModificar");
-                                }%>
+                            }%>
                         <form action="controlModificarDatosPersonales" method="post">
 
                             <div class="row">
@@ -346,13 +348,13 @@
                             <div class="form-group">
                                 <input class="primary-btn order-submit" style="width: 50%" name="modificar" value="Modificar" type="submit">
                                 <% String URL = (String) contexto.getAttribute("URL");
-                                            if (URL.equals("/ProyectoProductosTecnologicos/storeBusqueda.jsp")) {%>
+                                    if (URL.equals("/ProyectoProductosTecnologicos/storeBusqueda.jsp")) {%>
                                 <a href="storeBusqueda.jsp" class="primary-btn order-submit" style="width: 49%">Volver</a>
                                 <%}
-                                            if (URL.equals("/ProyectoProductosTecnologicos/store.jsp")) { %>
+                                    if (URL.equals("/ProyectoProductosTecnologicos/store.jsp")) { %>
                                 <a href="store.jsp" class="primary-btn order-submit" style="width: 49%">Volver</a>
                                 <% }
-                                            if (URL.equals("/ProyectoProductosTecnologicos/storePorCategoria.jsp")) { %>
+                                    if (URL.equals("/ProyectoProductosTecnologicos/storePorCategoria.jsp")) { %>
                                 <a href="storePorCategoria.jsp" class="primary-btn order-submit" style="width: 49%">Volver</a>
                                 <% }%>
                             </div>

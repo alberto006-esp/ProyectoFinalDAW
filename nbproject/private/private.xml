@@ -5,14 +5,26 @@
         <group>
             <file>file:/C:/Users/alber/OneDrive/Documentos/NetBeansProjects/ProyectoProductosTecnologicos/src/java/controlador/controlPedidos.java</file>
             <file>file:/C:/Users/alber/OneDrive/Documentos/NetBeansProjects/ProyectoProductosTecnologicos/web/vistaProducto.jsp</file>
-            <file>file:/C:/Users/alber/OneDrive/Documentos/NetBeansProjects/ProyectoProductosTecnologicos/src/java/controlador/controlVistaProducto.java</file>
+            <file>file:/C:/Users/alber/OneDrive/Documentos/NetBeansProjects/ProyectoProductosTecnologicos/web/pedidosFecha.jsp</file>
+            <file>file:/C:/Users/alber/OneDrive/Documentos/NetBeansProjects/ProyectoProductosTecnologicos/web/storeAdmin.jsp</file>
+            <file>file:/C:/Users/alber/OneDrive/Documentos/NetBeansProjects/ProyectoProductosTecnologicos/web/pedidosUnProducto.jsp</file>
             <file>file:/C:/Users/alber/OneDrive/Documentos/NetBeansProjects/ProyectoProductosTecnologicos/web/storeFiltroPrecio.jsp</file>
             <file>file:/C:/Users/alber/OneDrive/Documentos/NetBeansProjects/ProyectoProductosTecnologicos/web/carrito.jsp</file>
+            <file>file:/C:/Users/alber/OneDrive/Documentos/NetBeansProjects/ProyectoProductosTecnologicos/src/java/controlador/controlPedidosUnCliente.java</file>
             <file>file:/C:/Users/alber/OneDrive/Documentos/NetBeansProjects/ProyectoProductosTecnologicos/web/store.jsp</file>
             <file>file:/C:/Users/alber/OneDrive/Documentos/NetBeansProjects/ProyectoProductosTecnologicos/web/js/CalcularTotalCarrito.js</file>
-            <file>file:/C:/Users/alber/OneDrive/Documentos/NetBeansProjects/ProyectoProductosTecnologicos/web/index.html</file>
             <file>file:/C:/Users/alber/OneDrive/Documentos/NetBeansProjects/ProyectoProductosTecnologicos/web/miCuenta.jsp</file>
             <file>file:/C:/Users/alber/OneDrive/Documentos/NetBeansProjects/ProyectoProductosTecnologicos/src/java/Db/BDD.java</file>
+            <file>file:/C:/Users/alber/OneDrive/Documentos/NetBeansProjects/ProyectoProductosTecnologicos/src/java/controlador/controlProductosPedidosUnCliente.java</file>
+            <file>file:/C:/Users/alber/OneDrive/Documentos/NetBeansProjects/ProyectoProductosTecnologicos/web/productosPedidosCliente.jsp</file>
+            <file>file:/C:/Users/alber/OneDrive/Documentos/NetBeansProjects/ProyectoProductosTecnologicos/web/pedidosUnCliente.jsp</file>
+            <file>file:/C:/Users/alber/OneDrive/Documentos/NetBeansProjects/ProyectoProductosTecnologicos/src/java/controlador/controlVistaProducto.java</file>
+            <file>file:/C:/Users/alber/OneDrive/Documentos/NetBeansProjects/ProyectoProductosTecnologicos/web/productosPorPedidoFecha.jsp</file>
+            <file>file:/C:/Users/alber/OneDrive/Documentos/NetBeansProjects/ProyectoProductosTecnologicos/src/java/controlador/controlPedidosUnProducto.java</file>
+            <file>file:/C:/Users/alber/OneDrive/Documentos/NetBeansProjects/ProyectoProductosTecnologicos/web/pedidosPorClientes.jsp</file>
+            <file>file:/C:/Users/alber/OneDrive/Documentos/NetBeansProjects/ProyectoProductosTecnologicos/src/java/controlador/controlRegistro.java</file>
+            <file>file:/C:/Users/alber/OneDrive/Documentos/NetBeansProjects/ProyectoProductosTecnologicos/web/pedidosPorProductos.jsp</file>
+            <file>file:/C:/Users/alber/OneDrive/Documentos/NetBeansProjects/ProyectoProductosTecnologicos/web/index.html</file>
             <file>file:/C:/Users/alber/OneDrive/Documentos/NetBeansProjects/ProyectoProductosTecnologicos/web/storePorCategoria.jsp</file>
             <file>file:/C:/Users/alber/OneDrive/Documentos/NetBeansProjects/ProyectoProductosTecnologicos/src/java/controlador/controlModificarDatosPersonales.java</file>
             <file>file:/C:/Users/alber/OneDrive/Documentos/NetBeansProjects/ProyectoProductosTecnologicos/web/storeBusqueda.jsp</file>
