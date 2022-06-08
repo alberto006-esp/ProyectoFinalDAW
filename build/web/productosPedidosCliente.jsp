@@ -24,8 +24,8 @@
         <link href="https://fonts.googleapis.com/css?family=Montserrat:400,500,700" rel="stylesheet">
 
         <!-- Bootstrap -->
-        <link type="text/css" rel="stylesheet" href="css/bootstrap.min.css"/>
-
+        <link type="text/css" rel="stylesheet" href="css/bootstrap.min_1.css"/>
+        <link type="text/css" rel="stylesheet" href="https://cdn.datatables.net/1.11.3/css/dataTables.bootstrap5.min.css"/>
         <!-- Slick -->
         <link type="text/css" rel="stylesheet" href="css/slick.css"/>
         <link type="text/css" rel="stylesheet" href="css/slick-theme.css"/>
@@ -51,19 +51,19 @@
         <!-- HEADER -->
         <header>
             <!-- TOP HEADER -->
-             <%
-            
-            HttpSession sesion=request.getSession();
-    
-     String usuario=(String) sesion.getAttribute("usuario");
+            <%
 
-    if(usuario == null){
+                HttpSession sesion = request.getSession();
 
-        RequestDispatcher rd;
-        ServletContext contexto = getServletContext();
-        rd= contexto.getRequestDispatcher("/index.html");
-        rd.forward(request, response);
-        }
+                String usuario = (String) sesion.getAttribute("usuario");
+
+                if (usuario == null) {
+
+                    RequestDispatcher rd;
+                    ServletContext contexto = getServletContext();
+                    rd = contexto.getRequestDispatcher("/index.html");
+                    rd.forward(request, response);
+                }
             %>
             <div id="top-header">
                 <div class="container">
@@ -74,7 +74,7 @@
                     </ul>
                     <ul class="header-links pull-right" style="color: white">
                         <li><i class="fa fa-euro"></i> Euros</li>
-                            
+
                         <li><i class="fa fa-user-o"></i> <%=sesion.getAttribute("usuario")%></li>
                         <li><a href="controlCerrarSesion"><i class="fa fa-sign-out"></i>Cerrar Sesion</a></li>
                     </ul>
@@ -154,65 +154,66 @@
         <!-- /SECTION -->
         <%  ServletContext contexto = getServletContext();
             List<Producto> listaProductosPedidosCliente = (List<Producto>) contexto.getAttribute("listaProductosPedidosCliente");
-            
+
             //List<Producto> listaProductos=BDD.buscarProductos();
-            boolean mostrar=false;
+            boolean mostrar = false;
             if (listaProductosPedidosCliente == null) {
                 listaProductosPedidosCliente = new ArrayList<Producto>();
-            }else{
-                mostrar=true;
+            } else {
+                mostrar = true;
             }
             if (mostrar) {
-            if (listaProductosPedidosCliente.isEmpty()) {%>
-                <div class="container">
-                 <div class="section">
-                 <div style="background-color: #D10024; text-align: center">
-                     <h3 style="color: white">No existe ningún producto en ese pedido</h3>
-                 </div> 
-                 </div>  
+                if (listaProductosPedidosCliente.isEmpty()) {%>
+        <div class="container">
+            <div class="section">
+                <div class="alert alert-danger text-center" role="alert">
+                    ¡NO EXISTE NINGÚN PRODUCTO EN ESE PEDIDO!
+                </div> 
+            </div>  
+        </div>
+        <%} else {%>
+        <div class="container">
+            <div class="section">
+                <table class="table" id="tabla">
+                    <thead class="table-condensed bg-danger">
+                        <tr>
+                            <th scope="col">Foto</th>
+                            <th scope="col">Nombre</th>
+                            <th scope="col">Categoria</th>
+                            <th scope="col">Detalle</th>
+                            <th scope="col">Precio</th>
+                            <th scope="col">Descuento</th>
+                            <th scope="col">Cantidad</th>
+                            <th scope="col"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% for (Producto pro : listaProductosPedidosCliente) {
+
+                        %>
+
+                        <tr>
+
+                            <td><img src="img/<%=pro.getFoto()%>" alt="" style="width: 100px;height: 80px"></td>
+                            <td><%=pro.getNombre()%></td>
+                            <td><%=pro.getCategoria()%></td>
+                            <td><%=pro.getDetalle()%></td>
+                            <td><%=pro.getPrecio()%></td>
+                            <td><%=pro.getDescuento()%></td>
+                            <td><%=pro.getCantidad()%></td>
+                        </tr>
+                        <% }%>
+
+                    </tbody>
+                </table>
+                <br>
+                <form action="pedidosUnCliente.jsp">
+                    <input type="submit" name="volver" value="volver" class="btn btn-danger center-block">
+                </form>
             </div>
-            <%} else {%>
-            <div class="container">
-                 <div class="section">
-            <table class="table">
-                <thead class="table-condensed bg-danger">
-                    <tr>
-                        <th scope="col">Foto</th>
-                        <th scope="col">Nombre</th>
-                        <th scope="col">Categoria</th>
-                        <th scope="col">Detalle</th>
-                        <th scope="col">Precio</th>
-                        <th scope="col">Descuento</th>
-                        <th scope="col">Cantidad</th>
-                        <th scope="col"></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <% for (Producto pro : listaProductosPedidosCliente) {
-                            
-                    %>
-                        
-                    <tr>
-                        
-                        <td><img src="img/<%=pro.getFoto()%>" alt="" style="width: 100px;height: 80px"></td>
-                        <td><%=pro.getNombre()%></td>
-                        <td><%=pro.getCategoria()%></td>
-                        <td><%=pro.getDetalle()%></td>
-                        <td><%=pro.getPrecio()%></td>
-                        <td><%=pro.getDescuento()%></td>
-                        <td><%=pro.getCantidad()%></td>
-                    </tr>
-                      <% }%>
-                      
-                </tbody>
-            </table>
-                      <form action="pedidosUnCliente.jsp">
-                          <input type="submit" name="volver" value="volver" class="btn btn-danger center-block">
-                      </form>
-            </div>
-                </div>
+        </div>
         <%}
-        }%>
+            }%>
         <!-- NEWSLETTER -->
         <!-- /NEWSLETTER -->
 
@@ -321,6 +322,13 @@
         <script src="js/nouislider.min.js"></script>
         <script src="js/jquery.zoom.min.js"></script>
         <script src="js/main.js"></script>
-
+        <script src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
+        <script src="https://cdn.datatables.net/1.11.3/js/dataTables.bootstrap5.min.js"></script>
+        <script src="js/datatable.js"></script>
+        <script>
+                                    $(document).ready(function () {
+                                        $('#tabla').DataTable();
+                                    });
+        </script>
     </body>
 </html>

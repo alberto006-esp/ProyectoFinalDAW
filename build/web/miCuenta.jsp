@@ -278,7 +278,7 @@
                         <%if (mensajeModificar != null) {%>
 
                         <div class="form-group">
-                            <div class="alert alert-danger" role="alert">
+                            <div class="alert alert-danger text-center" role="alert">
                                 <%= mensajeModificar %>
                             </div>
                         </div>  

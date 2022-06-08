@@ -51,19 +51,19 @@
         <!-- HEADER -->
         <header>
             <!-- TOP HEADER -->
-             <%
-            
-            HttpSession sesion=request.getSession();
-    
-     String usuario=(String) sesion.getAttribute("usuario");
+            <%
 
-    if(usuario == null){
+                HttpSession sesion = request.getSession();
 
-        RequestDispatcher rd;
-        ServletContext contexto = getServletContext();
-        rd= contexto.getRequestDispatcher("/index.html");
-        rd.forward(request, response);
-        }
+                String usuario = (String) sesion.getAttribute("usuario");
+
+                if (usuario == null) {
+
+                    RequestDispatcher rd;
+                    ServletContext contexto = getServletContext();
+                    rd = contexto.getRequestDispatcher("/index.html");
+                    rd.forward(request, response);
+                }
             %>
             <div id="top-header">
                 <div class="container">
@@ -74,7 +74,7 @@
                     </ul>
                     <ul class="header-links pull-right" style="color: white">
                         <li><i class="fa fa-euro"></i> Euros</li>
-                            
+
                         <li><i class="fa fa-user-o"></i> <%=sesion.getAttribute("usuario")%></li>
                         <li><a href="controlCerrarSesion"><i class="fa fa-sign-out"></i>Cerrar Sesion</a></li>
                     </ul>
@@ -123,7 +123,7 @@
                     <ul class="main-nav nav navbar-nav">
                         <li><a href="storeAdmin.jsp">Home</a></li>
                         <li><a href="pedidosFecha.jsp">Pedidos por fecha</a></li>
-                        <li><a href="pedidosPorProductos.jsp">productos</a></li>
+                        <li><a href="pedidosPorProductos.jsp">Productos</a></li>
                         <li><a href="pedidosPorClientes.jsp">Clientes</a></li>
                     </ul>
                     <!-- /NAV -->
@@ -171,54 +171,54 @@
         <!-- /SECTION -->
         <%  ServletContext contexto = getServletContext();
             List<Pedido> listaPedidosFecha = (List<Pedido>) contexto.getAttribute("listaPedidosFecha");
-            boolean mostrar=false;
+            boolean mostrar = false;
             if (listaPedidosFecha == null) {
                 listaPedidosFecha = new ArrayList<Pedido>();
-            }else{
-                mostrar=true;
+            } else {
+                mostrar = true;
             }
             if (mostrar) {
-            if (listaPedidosFecha.isEmpty()) {%>
-                <div class="container">
-                 <div class="section">
-                 <div style="background-color: #D10024; text-align: center">
-                     <h3 style="color: white">No existe ningún pedido entre esas dos fechas</h3>
-                 </div> 
-                 </div>  
-            </div>
-            <%} else {%>
-            <div class="container">
-                 <div class="section">
-            <table class="table" id="tabla">
-                <thead class="table-condensed bg-danger">
-                    <tr>
-                        <th scope="col">Id Pedido</th>
-                        <th scope="col">Fecha Pedido</th>
-                        <th scope="col">Usuario</th>
-                        <th scope="col">Precio Total</th>
-                        <th scope="col"></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <% for (Pedido pedido : listaPedidosFecha) {%>
+                if (listaPedidosFecha.isEmpty()) {%>
+        <div class="container">
+            <div class="section">
+                <div class="alert alert-danger text-center" role="alert">
+                    ¡NO EXISTE NINGÚN PEDIDO ENTRE ESAS DOS FECHAS!
+                </div> 
+            </div>  
+        </div>
+        <%} else {%>
+        <div class="container">
+            <div class="section">
+                <table class="table" id="tabla">
+                    <thead class="table-condensed bg-danger">
+                        <tr>
+                            <th scope="col">Id Pedido</th>
+                            <th scope="col">Fecha Pedido</th>
+                            <th scope="col">Usuario</th>
+                            <th scope="col">Precio Total</th>
+                            <th scope="col"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% for (Pedido pedido : listaPedidosFecha) {%>
 
-                    <tr>
-                        <th scope="row"><%=pedido.getIdPedido()%></th>
-                        <td><%=pedido.getFechaPedido()%></td>
-                        <td><%=pedido.getNombreUsuario()%></td>
-                        <td><%=pedido.getPedidoTotal()%>€</td>
-                        <td><form action="controlProductosPorFecha" method="post">
-                                        <input hidden="true" type="text" name="idPedido" value="<%=pedido.getIdPedido()%>">
-                                        <input type="submit" name="name" value="seleccionar" class="btn btn-danger">
-                            </form></td>
-                    </tr>
-                   <%}%> 
-                </tbody>
-            </table>
+                        <tr>
+                            <th scope="row"><%=pedido.getIdPedido()%></th>
+                            <td><%=pedido.getFechaPedido()%></td>
+                            <td><%=pedido.getNombreUsuario()%></td>
+                            <td><%=pedido.getPedidoTotal()%>€</td>
+                            <td><form action="controlProductosPorFecha" method="post">
+                                    <input hidden="true" type="text" name="idPedido" value="<%=pedido.getIdPedido()%>">
+                                    <input type="submit" name="name" value="seleccionar" class="btn btn-danger">
+                                </form></td>
+                        </tr>
+                        <%}%> 
+                    </tbody>
+                </table>
             </div>
-                </div>
-            <%}
-        }%>
+        </div>
+        <%}
+                }%>
         <!-- NEWSLETTER -->
         <!-- /NEWSLETTER -->
 
@@ -330,10 +330,10 @@
         <script src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
         <script src="https://cdn.datatables.net/1.11.3/js/dataTables.bootstrap5.min.js"></script>
         <script src="js/datatable.js"></script>
-         <script>
-            $(document).ready( function () {
-                $('#tabla').DataTable();
-            } );
+        <script>
+                                    $(document).ready(function () {
+                                        $('#tabla').DataTable();
+                                    });
         </script>
     </body>
 </html>

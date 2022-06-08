@@ -52,19 +52,19 @@
         <!-- HEADER -->
         <header>
             <!-- TOP HEADER -->
-             <%
-            
-            HttpSession sesion=request.getSession();
-    
-     String usuario=(String) sesion.getAttribute("usuario");
+            <%
 
-    if(usuario == null){
+                HttpSession sesion = request.getSession();
 
-        RequestDispatcher rd;
-        ServletContext contexto = getServletContext();
-        rd= contexto.getRequestDispatcher("/index.html");
-        rd.forward(request, response);
-        }
+                String usuario = (String) sesion.getAttribute("usuario");
+
+                if (usuario == null) {
+
+                    RequestDispatcher rd;
+                    ServletContext contexto = getServletContext();
+                    rd = contexto.getRequestDispatcher("/index.html");
+                    rd.forward(request, response);
+                }
             %>
             <div id="top-header">
                 <div class="container">
@@ -75,7 +75,7 @@
                     </ul>
                     <ul class="header-links pull-right" style="color: white">
                         <li><i class="fa fa-euro"></i> Euros</li>
-                            
+
                         <li><i class="fa fa-user-o"></i> <%=sesion.getAttribute("usuario")%></li>
                         <li><a href="controlCerrarSesion"><i class="fa fa-sign-out"></i>Cerrar Sesion</a></li>
                     </ul>
@@ -154,58 +154,65 @@
         <!-- SECTION -->
         <!-- /SECTION -->
         <%  ServletContext contexto = getServletContext();
-            List<Pedido> listaPedidosCliente=(List<Pedido>) contexto.getAttribute("listaPedidosCliente");
-            boolean mostrar=false;
+            List<Pedido> listaPedidosCliente = (List<Pedido>) contexto.getAttribute("listaPedidosCliente");
+            boolean mostrar = false;
             if (listaPedidosCliente == null) {
                 listaPedidosCliente = new ArrayList<Pedido>();
-            }else{
-                mostrar=true;
+            } else {
+                mostrar = true;
             }
             if (mostrar) {
-            if (listaPedidosCliente.isEmpty()) {%>
-                <div class="container">
-                 <div class="section">
-                 <div style="background-color: #D10024; text-align: center">
-                     <h3 style="color: white">No existe ningún pedido de ese cliente</h3>
-                 </div> 
-                 </div>  
-            </div>
-            <%} else {%>
-            <div class="container">
-                 <div class="section">
+                if (listaPedidosCliente.isEmpty()) {%>
+        <div class="container">
+            <div class="section">
+                <div class="alert alert-danger text-center" role="alert">
+                    ¡EL CLIENTE NO HA REALIZADO NINGÚN PEDIDO!
+                </div> 
+                <form action="pedidosPorClientes.jsp">
+                    <input type="submit" name="volver" value="volver" class="btn btn-danger center-block">
+                </form>
+            </div>  
+        </div>
+        <%} else {%>
+        <div class="container">
+            <div class="section">
                 <table class="table" id="tabla">
-                <thead class="table-condensed bg-danger">
-                    <tr>
-                        <th scope="col">Id Pedido</th>
-                        <th scope="col">Fecha Pedido</th>
-                        <th scope="col">Usuario</th>
-                        <th scope="col">Precio Total</th>
-                        <th scope="col"></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <% for (Pedido pedido : listaPedidosCliente) {
-                              
-                    %>
-                        
-                    <tr>
-                        <th scope="row"><%=pedido.getIdPedido()%></th>
-                        <td><%=pedido.getFechaPedido()%></td>
-                        <td><%=pedido.getNombreUsuario()%></td>
-                        <td><%=pedido.getPedidoTotal()%>€</td>
-                        <td><form action="controlProductosPedidosUnCliente" method="post">
-                                        <input hidden="true" type="text" name="idPedido" value="<%=pedido.getIdPedido()%>">
-                                        <input type="submit" name="name" value="seleccionar" class="btn btn-danger">
-                            </form></td>
-                    </tr>
-                   <%
-                       }%> 
-                </tbody>
-            </table>
+                    <thead class="table-condensed bg-danger">
+                        <tr>
+                            <th scope="col">Id Pedido</th>
+                            <th scope="col">Fecha Pedido</th>
+                            <th scope="col">Usuario</th>
+                            <th scope="col">Precio Total</th>
+                            <th scope="col"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% for (Pedido pedido : listaPedidosCliente) {
+
+                        %>
+
+                        <tr>
+                            <th scope="row"><%=pedido.getIdPedido()%></th>
+                            <td><%=pedido.getFechaPedido()%></td>
+                            <td><%=pedido.getNombreUsuario()%></td>
+                            <td><%=pedido.getPedidoTotal()%>€</td>
+                            <td><form action="controlProductosPedidosUnCliente" method="post">
+                                    <input hidden="true" type="text" name="idPedido" value="<%=pedido.getIdPedido()%>">
+                                    <input type="submit" name="name" value="seleccionar" class="btn btn-danger">
+                                </form></td>
+                        </tr>
+                        <%
+                            }%> 
+                    </tbody>
+                </table>
+                <br>
+                <form action="pedidosPorClientes.jsp">
+                    <input type="submit" name="volver" value="volver" class="btn btn-danger center-block">
+                </form>
             </div>
-                </div>
+        </div>
         <%}
-        }%>
+            }%>
         <!-- NEWSLETTER -->
         <!-- /NEWSLETTER -->
 
@@ -317,10 +324,10 @@
         <script src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
         <script src="https://cdn.datatables.net/1.11.3/js/dataTables.bootstrap5.min.js"></script>
         <script src="js/datatable.js"></script>
-         <script>
-            $(document).ready( function () {
-                $('#tabla').DataTable();
-            } );
+        <script>
+                                    $(document).ready(function () {
+                                        $('#tabla').DataTable();
+                                    });
         </script>
     </body>
 </html>

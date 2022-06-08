@@ -279,7 +279,7 @@
         <div class="container">
             <div class="section">
                 <div class="form-group">
-                    <div class="alert alert-danger" role="alert">
+                    <div class="alert alert-danger text-center" role="alert">
                         <%= mensajePedido %>
                     </div>
                 </div> 

@@ -52,19 +52,19 @@
         <!-- HEADER -->
         <header>
             <!-- TOP HEADER -->
-             <%
-            
-            HttpSession sesion=request.getSession();
-    
-     String usuario=(String) sesion.getAttribute("usuario");
+            <%
 
-    if(usuario == null){
+                HttpSession sesion = request.getSession();
 
-        RequestDispatcher rd;
-        ServletContext contexto = getServletContext();
-        rd= contexto.getRequestDispatcher("/index.html");
-        rd.forward(request, response);
-        }
+                String usuario = (String) sesion.getAttribute("usuario");
+
+                if (usuario == null) {
+
+                    RequestDispatcher rd;
+                    ServletContext contexto = getServletContext();
+                    rd = contexto.getRequestDispatcher("/index.html");
+                    rd.forward(request, response);
+                }
             %>
             <div id="top-header">
                 <div class="container">
@@ -75,7 +75,7 @@
                     </ul>
                     <ul class="header-links pull-right" style="color: white">
                         <li><i class="fa fa-euro"></i> Euros</li>
-                            
+
                         <li><i class="fa fa-user-o"></i> <%=sesion.getAttribute("usuario")%></li>
                         <li><a href="controlCerrarSesion"><i class="fa fa-sign-out"></i>Cerrar Sesion</a></li>
                     </ul>
@@ -155,63 +155,63 @@
         <!-- /SECTION -->
         <%  ServletContext contexto = getServletContext();
             //List<Pedido> listaPedidosFecha = (List<Pedido>) contexto.getAttribute("listaPedidosFecha");
-            
-            List<Usuario> listaClientes=BDD.BuscarClientes();
-            boolean mostrar=false;
+
+            List<Usuario> listaClientes = BDD.BuscarClientes();
+            boolean mostrar = false;
             if (listaClientes == null) {
                 listaClientes = new ArrayList<Usuario>();
-            }else{
-                mostrar=true;
+            } else {
+                mostrar = true;
             }
             if (mostrar) {
-            if (listaClientes.isEmpty()) {%>
-                <div class="container">
-                 <div class="section">
-                 <div style="background-color: #D10024; text-align: center">
-                     <h3 style="color: white">No existe ningún pedido</h3>
-                 </div> 
-                 </div>  
+                if (listaClientes.isEmpty()) {%>
+        <div class="container">
+            <div class="section">
+                <div class="alert alert-danger text-center" role="alert">
+                    ¡NO EXISTE NINGÚN PEDIDO!
+                </div> 
+            </div>  
+        </div>
+        <%} else {%>
+        <div class="container">
+            <div class="section">
+                <table class="table" id="tabla">
+                    <thead class="table-condensed bg-danger">
+                        <tr>
+                            <th scope="col">Nombre</th>
+                            <th scope="col">Apellidos</th>
+                            <th scope="col">Email</th>
+                            <th scope="col">Usuario</th>
+                            <th scope="col">Dirección</th>
+                            <th scope="col">Teléfono</th>
+                            <th scope="col"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% for (Usuario usu : listaClientes) {
+                                if (usu.getTipo().equals("user")) {
+                        %>
+
+                        <tr>
+                            <th scope="row"><%=usu.getNombre()%></th>
+                            <td><%=usu.getApellidos()%></td>
+                            <td><%=usu.getEmail()%></td>
+                            <td><%=usu.getUsuario()%></td>
+                            <td><%=usu.getDireccion()%></td>
+                            <td><%=usu.getTelefono()%></td>
+                            <td><form action="controlPedidosUnCliente" method="post">
+                                    <input hidden="true" type="text" name="nombreCliente" value="<%=usu.getUsuario()%>">
+                                    <input type="submit" name="name" value="seleccionar" class="btn btn-danger">
+                                </form></td>
+                        </tr>
+                        <%}
+                            }%> 
+                    </tbody>
+                </table>
             </div>
-            <%} else {%>
-            <div class="container">
-                 <div class="section">
-               <table class="table" id="tabla">
-                <thead class="table-condensed bg-danger">
-                    <tr>
-                        <th scope="col">Nombre</th>
-                        <th scope="col">Apellidos</th>
-                        <th scope="col">Email</th>
-                        <th scope="col">Usuario</th>
-                        <th scope="col">Dirección</th>
-                        <th scope="col">Teléfono</th>
-                        <th scope="col"></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <% for (Usuario usu : listaClientes) {
-                        if (usu.getTipo().equals("user")) {      
-                    %>
-                        
-                    <tr>
-                        <th scope="row"><%=usu.getNombre()%></th>
-                        <td><%=usu.getApellidos()%></td>
-                        <td><%=usu.getEmail()%></td>
-                        <td><%=usu.getUsuario()%></td>
-                        <td><%=usu.getDireccion()%></td>
-                        <td><%=usu.getTelefono()%></td>
-                                <td><form action="controlPedidosUnCliente" method="post">
-                                        <input hidden="true" type="text" name="nombreCliente" value="<%=usu.getUsuario()%>">
-                                        <input type="submit" name="name" value="seleccionar" class="btn btn-danger">
-                            </form></td>
-                    </tr>
-                   <%}
-                       }%> 
-                </tbody>
-            </table>
-            </div>
-                </div>
+        </div>
         <%}
-        }%>
+            }%>
         <!-- NEWSLETTER -->
         <!-- /NEWSLETTER -->
 
@@ -323,10 +323,10 @@
         <script src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
         <script src="https://cdn.datatables.net/1.11.3/js/dataTables.bootstrap5.min.js"></script>
         <script src="js/datatable.js"></script>
-         <script>
-            $(document).ready( function () {
-                $('#tabla').DataTable();
-            } );
+        <script>
+                                    $(document).ready(function () {
+                                        $('#tabla').DataTable();
+                                    });
         </script>
     </body>
 </html>
